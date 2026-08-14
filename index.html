@@ -4,21 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>SHOKAIMONO 🌸</title>
-    <!-- Font chữ to, tròn, dễ thương -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@500;700;900&family=M+PLUS+Rounded+1c:wght@500;700;900&display=swap" rel="stylesheet">
     
     <style>
         :root {
-            --bg-app: #e0f2fe; /* Xanh da trời nhạt cute */
-            --primary: #38bdf8; /* Xanh dương tươi tắn */
-            --secondary: #7dd3fc; /* Xanh pastel */
-            --accent: #f472b6; /* Hồng baby điểm xuyết */
-            --success: #34d399; /* Xanh lá cho nút Xóa */
+            --bg-app: #e0f2fe; 
+            --primary: #38bdf8; 
+            --secondary: #7dd3fc; 
+            --accent: #f472b6; 
+            --success: #10b981; 
+            --warning: #f59e0b;
             --text-dark: #1e293b;
             --text-gray: #475569;
             --card-bg: #ffffff;
             --font-vi: 'Nunito', sans-serif;
-            --font-jp: 'M PLUS Rounded 1c', sans-serif; /* Font Nhật nét tròn siêu cute */
+            --font-jp: 'M PLUS Rounded 1c', sans-serif; 
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
@@ -35,7 +36,6 @@
         .jp-text { font-family: var(--font-jp) !important; }
         .vi-text { font-family: var(--font-vi) !important; }
 
-        /* NAVBAR */
         .navbar {
             background: linear-gradient(135deg, var(--primary), var(--secondary));
             color: white;
@@ -51,14 +51,14 @@
             border-bottom-right-radius: 25px;
         }
 
-        .navbar h1 { font-size: 26px; font-weight: 900; letter-spacing: 2px; }
-        .menu-btn { background: none; border: none; font-size: 30px; color: white; cursor: pointer; }
+        .navbar h1 { font-family: var(--font-vi); font-size: 26px; font-weight: 900; letter-spacing: 2px; }
+        .menu-btn { font-family: var(--font-vi); background: none; border: none; font-size: 30px; color: white; cursor: pointer; }
 
-        /* MENU SIDEBAR CUTE */
         .sidebar {
             position: fixed; top: 0; left: -340px; width: 320px; height: 100vh;
             background-color: white; z-index: 200; transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             box-shadow: 5px 0 25px rgba(0,0,0,0.1); border-top-right-radius: 30px; border-bottom-right-radius: 30px;
+            overflow-y: auto;
         }
         .sidebar.active { left: 0; }
         .sidebar-header {
@@ -68,25 +68,23 @@
         .close-btn { position: absolute; top: 15px; right: 20px; background: none; border: none; color: white; font-size: 28px;}
         .nav-links { list-style: none; padding: 20px; }
         .nav-links li {
-            padding: 20px; margin-bottom: 15px; border-radius: 20px; font-size: 20px; font-weight: 800;
+            padding: 18px; margin-bottom: 15px; border-radius: 20px; font-size: 19px; font-weight: 800;
             color: var(--text-dark); display: flex; align-items: center; gap: 15px; transition: 0.2s;
-            background: #f0f9ff; border: 2px solid #bae6fd; cursor: pointer;
+            background: #f0f9ff; border: 2px solid #bae6fd; cursor: pointer; font-family: var(--font-vi);
         }
         .nav-links li:active { background-color: #e0f2fe; transform: scale(0.95); }
 
         .overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.4); z-index: 150; display: none; opacity: 0; transition: 0.3s; backdrop-filter: blur(2px); }
         .overlay.active { display: block; opacity: 1; }
 
-        /* CONTAINER CHUNG */
         .container { margin-top: 100px; padding: 0 15px; max-width: 650px; margin-left: auto; margin-right: auto; }
         section { display: none; animation: fadeIn 0.4s; }
         section.active { display: block; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* KHU VỰC THÊM TỪ */
         .card { background: var(--card-bg); padding: 30px 25px; border-radius: 30px; box-shadow: 0 10px 40px rgba(56, 189, 248, 0.15); border: 3px solid #f0f9ff; }
         .input-group { margin-bottom: 22px; }
-        .input-group label { display: block; font-size: 18px; font-weight: 900; color: var(--primary); margin-bottom: 10px; }
+        .input-group label { display: block; font-size: 18px; font-weight: 900; color: var(--primary); margin-bottom: 10px; font-family: var(--font-vi);}
         input, select {
             width: 100%; padding: 18px; border: 2px solid #bae6fd; border-radius: 20px; font-size: 20px;
             font-family: var(--font-vi); transition: 0.3s; background-color: #f8fafc; color: var(--text-dark); font-weight: 700;
@@ -94,6 +92,7 @@
         input.jp-input { font-family: var(--font-jp); font-size: 22px; font-weight: 700; }
         input:focus, select:focus { outline: none; border-color: var(--accent); background-color: white; box-shadow: 0 0 0 5px rgba(244, 114, 182, 0.15); }
         
+        button { font-family: var(--font-vi) !important; }
         button.btn-submit {
             width: 100%; padding: 20px; background: linear-gradient(135deg, var(--primary), var(--secondary));
             color: white; border: none; border-radius: 20px; font-size: 22px; font-weight: 900; cursor: pointer;
@@ -101,8 +100,7 @@
         }
         button.btn-submit:active { transform: scale(0.95); }
 
-        /* ACCORDION (THÁNG -> NGÀY -> TỪ VỰNG) */
-        .section-title { font-size: 24px; font-weight: 900; color: var(--primary); margin-bottom: 25px; text-align: center; text-transform: uppercase; letter-spacing: 2px;}
+        .section-title { font-size: 24px; font-weight: 900; color: var(--primary); margin-bottom: 25px; text-align: center; text-transform: uppercase; letter-spacing: 1px;}
         
         .month-group { margin-bottom: 20px; background: white; border-radius: 25px; box-shadow: 0 6px 20px rgba(56, 189, 248, 0.1); border: 2px solid #e0f2fe; overflow: hidden; }
         .month-header {
@@ -125,13 +123,13 @@
 
         @keyframes slideDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* CẤP 3: THẺ TỪ VỰNG */
         .word-card { background: white; border-radius: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); margin-bottom: 15px; border-left: 6px solid var(--accent); overflow: hidden; position: relative;}
         .word-card:last-child { margin-bottom: 0; }
         
         .word-header { padding: 20px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; }
         .w-jp { font-size: 34px; font-weight: 900; color: var(--text-dark); display: block; line-height: 1.2;}
-        .w-new-badge { font-size: 14px; background: #fef08a; color: #ca8a04; padding: 4px 8px; border-radius: 10px; font-weight: 800; margin-left: 10px; vertical-align: middle;}
+        .w-new-badge { font-size: 14px; background: #fef08a; color: #ca8a04; padding: 4px 8px; border-radius: 10px; font-weight: 800; margin-left: 10px; vertical-align: middle; font-family: var(--font-vi);}
+        .w-done-badge { font-size: 14px; background: #d1fae5; color: #047857; padding: 4px 8px; border-radius: 10px; font-weight: 800; margin-left: 10px; vertical-align: middle; font-family: var(--font-vi);}
         
         .word-card.open .word-header .toggle-icon { transform: rotate(180deg); color: var(--accent); }
 
@@ -139,22 +137,23 @@
             max-height: 0; overflow: hidden; transition: max-height 0.4s ease, padding 0.3s ease;
             background-color: #ffffff; border-top: 1px dashed transparent; padding: 0 20px;
         }
-        .word-card.open .word-body { max-height: 1000px; padding: 20px; border-top-color: #e2e8f0; }
+        .word-card.open .word-body { max-height: 1500px; padding: 20px; border-top-color: #e2e8f0; }
 
         .detail-item { font-size: 20px; margin-bottom: 16px; line-height: 1.6; color: var(--text-dark); }
-        .detail-item span.label { font-weight: 900; color: var(--primary); display: inline-block; min-width: 100px; font-size: 18px; text-transform: uppercase; }
+        .detail-item span.label { font-weight: 900; color: var(--primary); display: inline-block; min-width: 100px; font-size: 18px; text-transform: uppercase; font-family: var(--font-vi);}
         
-        /* NÚT XÓA / ĐÃ THUỘC */
-        .btn-delete {
-            width: 100%; padding: 15px; background: var(--success); color: white; border: none; border-radius: 15px;
-            font-size: 18px; font-weight: 900; cursor: pointer; margin-top: 10px; transition: 0.2s;
-            box-shadow: 0 4px 15px rgba(52, 211, 153, 0.4);
+        .action-buttons { display: flex; flex-direction: column; gap: 10px; margin-top: 20px; }
+        .btn-action {
+            width: 100%; padding: 15px; border: none; border-radius: 15px; font-size: 18px; 
+            font-weight: 900; cursor: pointer; transition: 0.2s;
         }
-        .btn-delete:active { transform: scale(0.95); }
+        .btn-success { background: var(--success); color: white; box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4); }
+        .btn-undo { background: #cbd5e1; color: #1e293b; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        .btn-link { background: var(--primary); color: white; box-shadow: 0 4px 15px rgba(56, 189, 248, 0.4); }
+        .btn-action:active { transform: scale(0.97); }
 
-        .num-bullet { color: var(--accent); font-weight: 900; font-size: 22px; margin-right: 5px;}
+        .num-bullet { color: var(--accent); font-weight: 900; font-size: 22px; margin-right: 5px; font-family: var(--font-vi);}
 
-        /* NÚT LOA */
         .speaker-box { display: flex; align-items: center; gap: 12px; }
         .speaker-btn {
             background: #e0f2fe; color: var(--primary); border: none; width: 45px; height: 45px;
@@ -167,11 +166,11 @@
             position: fixed; bottom: 30px; right: 25px; width: 60px; height: 60px;
             background: var(--accent); color: white; border: none; border-radius: 50%;
             font-size: 26px; box-shadow: 0 6px 20px rgba(244, 114, 182, 0.4); display: none; z-index: 99;
-            align-items: center; justify-content: center; transition: 0.3s;
+            align-items: center; justify-content: center; transition: 0.3s; cursor: pointer;
         }
         #backToTop:active { transform: scale(0.9); }
 
-        .loading-screen { text-align: center; padding: 60px 20px; color: var(--primary); font-size: 22px; font-weight: 900;}
+        .loading-screen { text-align: center; padding: 60px 20px; color: var(--primary); font-size: 22px; font-weight: 900; font-family: var(--font-vi);}
 
     </style>
 </head>
@@ -186,14 +185,14 @@
     <div class="sidebar" id="sidebar">
         <div class="sidebar-header">
             <button class="close-btn" onclick="toggleMenu()">✖</button>
-            <h2 style="font-size: 26px; font-weight: 900;">MENU ☁️</h2>
+            <h2 style="font-size: 26px; font-weight: 900; font-family: var(--font-vi);">MENU ☁️</h2>
         </div>
-        <!-- SẮP XẾP LẠI MENU VÀ ĐỔI ICON SAKURA -->
         <ul class="nav-links">
-            <li onclick="loadVocab('VOCAB')">🌸 VOCAB</li>
-            <li onclick="loadVocab('ニュース')">💮 ニュース</li>
-            <li onclick="loadVocab('Mới')">🏵️ Tab Mới</li>
             <li onclick="switchTab('addSection')">🌱 Thêm mới</li>
+            <li onclick="loadVocab('Mới_VOCAB', 'VOCAB')">🏵️ Mới VOCAB</li>
+            <li onclick="loadVocab('Mới_ニュース', 'ニュース')">🏵️ Mới ニュース</li>
+            <li onclick="loadVocab('VOCAB', 'VOCAB')">🌸 Kho VOCAB</li>
+            <li onclick="loadVocab('ニュース', 'ニュース')">💮 Kho ニュース</li>
         </ul>
     </div>
     <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
@@ -203,7 +202,7 @@
         <section id="addSection" class="active">
             <div class="card">
                 <div class="input-group">
-                    <label>🌸 Chọn nơi lưu</label>
+                    <label>🌸 Chọn nơi lưu (Kho gốc)</label>
                     <select id="tabSelect">
                         <option value="VOCAB">🌸 VOCAB</option>
                         <option value="ニュース">💮 ニュース</option>
@@ -247,7 +246,8 @@
         // === LINK APP SCRIPT CỦA BẠN ===
         const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw9HeNZEnE-kqo-wJePWhnoUiqin3kQbcf9LX4WppLtfwgPEwM5BxXlAkAVtfc5MyJi/exec'; 
 
-        let currentActiveTab = "Mới";
+        let currentViewMode = ""; // Lưu trạng thái tab đang xem (VD: Mới_VOCAB, VOCAB)
+        let currentSourceTab = ""; // Lưu Sheet đang truy xuất (VD: VOCAB, ニュース)
 
         function toggleMenu() {
             document.getElementById("sidebar").classList.toggle("active");
@@ -284,7 +284,7 @@
                 headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
                 body: bodyData
             }).then(response => {
-                alert("🎉 Lưu thành công!\nTừ này đã về đúng Sheet và sẽ tự động hiện ở mục Tab Mới.");
+                alert("🎉 Lưu thành công!\nTừ sẽ về thẳng Kho Gốc và tự động hiển thị trong Tab Mới tương ứng.");
                 document.getElementById('word').value = "";
                 document.getElementById('meaning').value = "";
                 document.getElementById('type').value = "";
@@ -299,19 +299,22 @@
             });
         }
 
-        function loadVocab(tabName) {
-            currentActiveTab = tabName; 
+        // TẢI DỮ LIỆU TỪ SHEET
+        function loadVocab(viewMode, sourceTab) {
+            currentViewMode = viewMode; 
+            currentSourceTab = sourceTab;
             switchTab('listSection');
             
-            let displayTitle = (tabName === "Mới") ? "🏵️ TAB MỚI (CHƯA THUỘC)" : `🌸 ${tabName}`;
+            // Xử lý tiêu đề hiển thị
+            let displayTitle = viewMode.startsWith("Mới") ? `🏵️ TAB MỚI: ${sourceTab}` : `🌸 KHO: ${sourceTab}`;
             document.getElementById('listTitle').innerText = displayTitle;
             
             document.getElementById('wordListContainer').innerHTML = `<div class="loading-screen">⏳<br>Đang tải dữ liệu...</div>`;
 
-            fetch(SCRIPT_URL + "?tab=" + tabName)
+            fetch(SCRIPT_URL + "?tab=" + sourceTab)
                 .then(res => res.json())
                 .then(data => {
-                    processData(data);
+                    processData(data, viewMode, sourceTab);
                 }).catch(err => {
                     document.getElementById('wordListContainer').innerHTML = `<p style="text-align:center; color: red; font-size:20px;">Lỗi mạng. Tải lại trang dùm cái!</p>`;
                 });
@@ -324,13 +327,21 @@
             return formatted;
         }
 
-        function processData(data) {
+        // PHÂN LOẠI & LỌC TỪ
+        function processData(data, viewMode, sourceTab) {
             let groupedData = {}; 
             
             for (let i = 1; i < data.length; i++) {
                 let row = data[i];
                 if (!row[0]) continue; 
                 
+                let status = row[6] || ""; // Cột 7 (G) lưu trạng thái "Đã nhớ"
+                
+                // LỌC: Nếu đang ở Tab Mới -> Bỏ qua các từ "Đã nhớ"
+                if (viewMode.startsWith("Mới") && status === "Đã nhớ") {
+                    continue; 
+                }
+
                 let rawDate = row[2] ? row[2].toString().substring(0, 10) : "Khác";
                 let dateStr = rawDate;
                 let monthStr = "Chưa phân loại";
@@ -354,13 +365,15 @@
                     meaning: formatLineBreaks(row[1] || ""), 
                     type: row[3] || "---",
                     pronun: row[4] || "---",
-                    example: formatLineBreaks(row[5] || "")   
+                    example: formatLineBreaks(row[5] || ""),
+                    status: status
                 });
             }
-            renderNestedAccordions(groupedData);
+            renderNestedAccordions(groupedData, viewMode, sourceTab);
         }
 
-        function renderNestedAccordions(groupedData) {
+        // RENDER GIAO DIỆN
+        function renderNestedAccordions(groupedData, viewMode, sourceTab) {
             let container = document.getElementById('wordListContainer');
             container.innerHTML = "";
             
@@ -370,7 +383,7 @@
             });
 
             if(months.length === 0) {
-                container.innerHTML = `<p style="text-align:center; font-size:20px;">Trống trơn à, không có từ nào đâu!</p>`;
+                container.innerHTML = `<p style="text-align:center; font-size:20px; font-weight:800; color:var(--text-gray);">Tuyệt vời! Không còn từ nào chưa thuộc. 🌸</p>`;
                 return;
             }
 
@@ -405,7 +418,26 @@
                     `;
 
                     words.forEach(w => {
-                        let badgeHtml = currentActiveTab === "Mới" ? `<span class="w-new-badge">Chưa nhớ</span>` : "";
+                        // Badge hiển thị dựa trên trạng thái (Áp dụng cho Kho)
+                        let badgeHtml = "";
+                        if (w.status === "Đã nhớ") {
+                            badgeHtml = `<span class="w-done-badge">Đã nhớ</span>`;
+                        } else {
+                            badgeHtml = `<span class="w-new-badge">Chưa thuộc</span>`;
+                        }
+
+                        // Xử lý Render Nút bấm động
+                        let actionButtonsHtml = "";
+                        if (w.status === "Đã nhớ") {
+                            actionButtonsHtml += `<button class="btn-action btn-undo" onclick="updateStatus('${w.word}', '', this, '${viewMode}')">↩️ Đánh dấu Chưa thuộc (Hoàn tác)</button>`;
+                        } else {
+                            actionButtonsHtml += `<button class="btn-action btn-success" onclick="updateStatus('${w.word}', 'Đã nhớ', this, '${viewMode}')">✅ Đã thuộc</button>`;
+                        }
+
+                        // Nếu ở tab Mới -> Có nút quay về Kho gốc
+                        if (viewMode.startsWith("Mới")) {
+                            actionButtonsHtml += `<button class="btn-action btn-link" onclick="loadVocab('${sourceTab}', '${sourceTab}')">🔗 Tới kho gốc: ${sourceTab}</button>`;
+                        }
 
                         html += `
                         <div class="word-card">
@@ -426,8 +458,10 @@
                                 <hr style="border-top: 2px dashed #bae6fd; margin: 20px 0;">
                                 <div class="detail-item"><span class="label" style="color:var(--accent);">Ý nghĩa:</span> <span class="vi-text" style="font-weight:800;">${w.meaning}</span></div>
                                 
-                                <!-- NÚT NÀY CHỈ HIỆN KHI ĐANG LỌC TỪ Ở TAB MỚI -->
-                                ${currentActiveTab === "Mới" ? `<button class="btn-delete" onclick="markAsLearned('${w.word}', this)">✅ Đã thuộc (Xóa khỏi Tab Mới)</button>` : ''}
+                                <!-- Hàng nút chức năng -->
+                                <div class="action-buttons">
+                                    ${actionButtonsHtml}
+                                </div>
                             </div>
                         </div>`;
                     });
@@ -440,27 +474,41 @@
             container.innerHTML = html;
         }
 
-        function markAsLearned(wordToMark, btnElement) {
-            let confirmDel = confirm(`Bạn đã thuộc chữ "${wordToMark}" rồi đúng không?\nChữ này sẽ được xóa khỏi mục này, nhưng vẫn lưu an toàn trong kho gốc nhé!`);
-            if(!confirmDel) return;
-
+        // HÀM CẬP NHẬT TRẠNG THÁI (Đã thuộc / Hoàn tác)
+        function updateStatus(wordToMark, newStatus, btnElement, viewMode) {
+            let originalText = btnElement.innerText;
             btnElement.innerHTML = '⏳ Đang xử lý...';
             btnElement.disabled = true;
 
-            let bodyData = `action=mark_learned&word=${encodeURIComponent(wordToMark)}`;
+            let bodyData = `action=update_status&word=${encodeURIComponent(wordToMark)}&status=${encodeURIComponent(newStatus)}`;
 
             fetch(SCRIPT_URL, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
                 body: bodyData
             }).then(response => {
-                let card = btnElement.closest('.word-card');
-                card.style.transition = "0.4s";
-                card.style.opacity = "0";
-                setTimeout(() => card.remove(), 400);
+                // Nếu đang ở Tab Mới và bấm "Đã thuộc", thì ẩn Card đó đi
+                if (viewMode.startsWith("Mới") && newStatus === "Đã nhớ") {
+                    let card = btnElement.closest('.word-card');
+                    card.style.transition = "0.4s";
+                    card.style.opacity = "0";
+                    setTimeout(() => card.remove(), 400);
+                } else {
+                    // Nếu ở tab Kho, đổi thiết kế nút và Badge
+                    let actionBox = btnElement.closest('.action-buttons');
+                    let badgeArea = btnElement.closest('.word-card').querySelector('.word-header div');
+                    
+                    if (newStatus === "Đã nhớ") {
+                        badgeArea.innerHTML = `<span class="w-jp jp-text">${wordToMark} <span class="w-done-badge">Đã nhớ</span></span>`;
+                        actionBox.innerHTML = `<button class="btn-action btn-undo" onclick="updateStatus('${wordToMark}', '', this, '${viewMode}')">↩️ Đánh dấu Chưa thuộc (Hoàn tác)</button>` + (actionBox.innerHTML.includes('🔗') ? `<button class="btn-action btn-link" onclick="loadVocab('${currentSourceTab}', '${currentSourceTab}')">🔗 Tới kho gốc: ${currentSourceTab}</button>` : '');
+                    } else {
+                        badgeArea.innerHTML = `<span class="w-jp jp-text">${wordToMark} <span class="w-new-badge">Chưa thuộc</span></span>`;
+                        actionBox.innerHTML = `<button class="btn-action btn-success" onclick="updateStatus('${wordToMark}', 'Đã nhớ', this, '${viewMode}')">✅ Đã thuộc</button>` + (actionBox.innerHTML.includes('🔗') ? `<button class="btn-action btn-link" onclick="loadVocab('${currentSourceTab}', '${currentSourceTab}')">🔗 Tới kho gốc: ${currentSourceTab}</button>` : '');
+                    }
+                }
             }).catch(err => {
                 alert("Lỗi mạng rồi. Thử lại sau nha!");
-                btnElement.innerHTML = '✅ Đã thuộc (Xóa khỏi Tab Mới)';
+                btnElement.innerHTML = originalText;
                 btnElement.disabled = false;
             });
         }
@@ -470,26 +518,17 @@
             parentBox.classList.toggle('open');
         }
 
-        // HÀM PHÁT ÂM: Chuẩn xác theo Tab bạn yêu cầu
+        // HÀM PHÁT ÂM CHUẨN XÁC
         function detectLangAndSpeak(text) {
             window.speechSynthesis.cancel();
             let utterance = new SpeechSynthesisUtterance(text);
             
             // Xử lý phát âm chính xác tuyệt đối theo Tab
-            if (currentActiveTab === "VOCAB") {
-                utterance.lang = 'en-US'; // Ép buộc giọng Tiếng Anh cho VOCAB
-            } else if (currentActiveTab === "ニュース") {
-                utterance.lang = 'ja-JP'; // Ép buộc giọng Tiếng Nhật cho ニュース
-            } else {
-                // Đang ở Tab Mới -> Tự động nhận diện chữ
-                if (/[\u3040-\u309F\u30A0-\u30FF\u4E00-\u9FAF]/.test(text)) {
-                    utterance.lang = 'ja-JP'; // Nếu có bất kỳ ký tự tiếng Nhật (Kanji/Kana) nào -> Đọc Tiếng Nhật
-                } else if (/[a-zA-Z]/.test(text)) {
-                    utterance.lang = 'en-US'; // Nếu toàn chữ cái Latin -> Đọc Tiếng Anh
-                } else {
-                    utterance.lang = 'ja-JP'; // Mặc định
-                }
-            }
+            if (currentSourceTab === "VOCAB") {
+                utterance.lang = 'en-US'; // 100% Tiếng Anh cho VOCAB
+            } else if (currentSourceTab === "ニュース") {
+                utterance.lang = 'ja-JP'; // 100% Tiếng Nhật cho ニュース
+            } 
             
             utterance.rate = 0.85; 
             window.speechSynthesis.speak(utterance);
