@@ -3,22 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>SHOKAIMONO</title>
-    <!-- Thư viện Icon -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <!-- Font chữ chuẩn cho Tiếng Việt và Tiếng Nhật -->
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Noto+Sans+JP:wght@500;700;900&display=swap" rel="stylesheet">
+    <title>SHOKAIMONO 🌸</title>
+    <!-- Font chữ to, tròn, dễ thương -->
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@500;700;900&family=M+PLUS+Rounded+1c:wght@500;700;900&display=swap" rel="stylesheet">
     
     <style>
         :root {
-            --bg-app: #f4f7f6;
-            --primary: #00b09b; /* Xanh bạc hà tươi tắn */
-            --secondary: #96c93d; /* Xanh lá non */
-            --text-dark: #2d3436;
-            --text-gray: #636e72;
+            --bg-app: #e0f2fe; /* Xanh da trời nhạt cute */
+            --primary: #38bdf8; /* Xanh dương tươi tắn */
+            --secondary: #7dd3fc; /* Xanh pastel */
+            --accent: #f472b6; /* Hồng baby điểm xuyết */
+            --text-dark: #1e293b;
+            --text-gray: #475569;
             --card-bg: #ffffff;
             --font-vi: 'Nunito', sans-serif;
-            --font-jp: 'Noto Sans JP', sans-serif;
+            --font-jp: 'M PLUS Rounded 1c', sans-serif; /* Font Nhật nét tròn siêu cute */
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
@@ -26,9 +25,10 @@
         body {
             font-family: var(--font-vi);
             background-color: var(--bg-app);
+            background-image: radial-gradient(circle at top right, #f0f9ff 0%, #e0f2fe 100%);
             color: var(--text-dark);
             overflow-x: hidden;
-            padding-bottom: 40px;
+            padding-bottom: 50px;
         }
 
         .jp-text { font-family: var(--font-jp) !important; }
@@ -38,145 +38,156 @@
         .navbar {
             background: linear-gradient(135deg, var(--primary), var(--secondary));
             color: white;
-            height: 70px;
+            height: 75px;
             display: flex;
             align-items: center;
             justify-content: space-between;
             padding: 0 20px;
             position: fixed;
             top: 0; width: 100%; z-index: 100;
-            box-shadow: 0 4px 15px rgba(0, 176, 155, 0.3);
-            border-bottom-left-radius: 20px;
-            border-bottom-right-radius: 20px;
+            box-shadow: 0 4px 20px rgba(56, 189, 248, 0.4);
+            border-bottom-left-radius: 25px;
+            border-bottom-right-radius: 25px;
         }
 
-        .navbar h1 { font-size: 24px; font-weight: 800; letter-spacing: 1.5px; }
-        .menu-btn { background: none; border: none; font-size: 26px; color: white; cursor: pointer; }
+        .navbar h1 { font-size: 26px; font-weight: 900; letter-spacing: 2px; }
+        .menu-btn { background: none; border: none; font-size: 30px; color: white; cursor: pointer; }
 
-        /* MENU SIDEBAR */
+        /* MENU SIDEBAR CUTE */
         .sidebar {
-            position: fixed; top: 0; left: -320px; width: 300px; height: 100vh;
-            background-color: white; z-index: 200; transition: 0.4s ease-in-out;
-            box-shadow: 5px 0 20px rgba(0,0,0,0.15); border-top-right-radius: 25px; border-bottom-right-radius: 25px;
+            position: fixed; top: 0; left: -340px; width: 320px; height: 100vh;
+            background-color: white; z-index: 200; transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 5px 0 25px rgba(0,0,0,0.1); border-top-right-radius: 30px; border-bottom-right-radius: 30px;
         }
         .sidebar.active { left: 0; }
         .sidebar-header {
-            padding: 40px 20px 30px 20px; background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: white; border-top-right-radius: 25px; text-align: center; position: relative;
+            padding: 45px 20px 30px 20px; background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white; border-top-right-radius: 30px; text-align: center; position: relative;
         }
-        .close-btn { position: absolute; top: 15px; right: 20px; background: none; border: none; color: white; font-size: 26px;}
-        .nav-links { list-style: none; padding: 20px 15px; }
+        .close-btn { position: absolute; top: 15px; right: 20px; background: none; border: none; color: white; font-size: 28px;}
+        .nav-links { list-style: none; padding: 20px; }
         .nav-links li {
-            padding: 18px 20px; margin-bottom: 12px; border-radius: 15px; font-size: 18px; font-weight: 700;
+            padding: 20px; margin-bottom: 15px; border-radius: 20px; font-size: 20px; font-weight: 800;
             color: var(--text-dark); display: flex; align-items: center; gap: 15px; transition: 0.2s;
-            background: #f8fafc; border: 1px solid #edf2f7;
+            background: #f0f9ff; border: 2px solid #bae6fd; cursor: pointer;
         }
-        .nav-links li i { font-size: 22px; color: var(--primary); }
-        .nav-links li:active { background-color: #e2e8f0; transform: scale(0.98); }
+        .nav-links li:active { background-color: #e0f2fe; transform: scale(0.95); }
 
-        .overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 150; display: none; opacity: 0; transition: 0.3s; }
+        .overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.4); z-index: 150; display: none; opacity: 0; transition: 0.3s; backdrop-filter: blur(2px); }
         .overlay.active { display: block; opacity: 1; }
 
         /* CONTAINER CHUNG */
-        .container { margin-top: 90px; padding: 0 15px; max-width: 600px; margin-left: auto; margin-right: auto; }
+        .container { margin-top: 100px; padding: 0 15px; max-width: 650px; margin-left: auto; margin-right: auto; }
         section { display: none; animation: fadeIn 0.4s; }
         section.active { display: block; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
         /* KHU VỰC THÊM TỪ */
-        .card { background: var(--card-bg); padding: 25px; border-radius: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); border: 1px solid #f0f0f0; }
-        .input-group { margin-bottom: 20px; }
-        .input-group label { display: block; font-size: 16px; font-weight: 800; color: var(--text-dark); margin-bottom: 8px; }
+        .card { background: var(--card-bg); padding: 30px 25px; border-radius: 30px; box-shadow: 0 10px 40px rgba(56, 189, 248, 0.15); border: 3px solid #f0f9ff; }
+        .input-group { margin-bottom: 22px; }
+        .input-group label { display: block; font-size: 18px; font-weight: 900; color: var(--primary); margin-bottom: 10px; }
         input, select {
-            width: 100%; padding: 16px; border: 2px solid #e0e6ed; border-radius: 15px; font-size: 18px;
-            font-family: var(--font-vi); transition: 0.3s; background-color: #f8fafc; color: var(--text-dark);
+            width: 100%; padding: 18px; border: 2px solid #bae6fd; border-radius: 20px; font-size: 20px;
+            font-family: var(--font-vi); transition: 0.3s; background-color: #f8fafc; color: var(--text-dark); font-weight: 700;
         }
-        input.jp-input { font-family: var(--font-jp); font-size: 20px; font-weight: 700; }
-        input:focus, select:focus { outline: none; border-color: var(--primary); background-color: white; box-shadow: 0 0 0 4px rgba(0, 176, 155, 0.1); }
+        input.jp-input { font-family: var(--font-jp); font-size: 22px; font-weight: 700; }
+        input:focus, select:focus { outline: none; border-color: var(--accent); background-color: white; box-shadow: 0 0 0 5px rgba(244, 114, 182, 0.15); }
         
         button.btn-submit {
-            width: 100%; padding: 18px; background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: white; border: none; border-radius: 15px; font-size: 20px; font-weight: 800; cursor: pointer;
-            box-shadow: 0 8px 20px rgba(0, 176, 155, 0.3); margin-top: 10px; transition: 0.2s;
+            width: 100%; padding: 20px; background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white; border: none; border-radius: 20px; font-size: 22px; font-weight: 900; cursor: pointer;
+            box-shadow: 0 8px 25px rgba(56, 189, 248, 0.4); margin-top: 15px; transition: 0.2s; letter-spacing: 1px;
         }
-        button.btn-submit:active { transform: scale(0.96); }
+        button.btn-submit:active { transform: scale(0.95); }
 
-        /* KHU VỰC LIST TỪ VỰNG & LỊCH XỔ XUỐNG */
-        .section-title { font-size: 22px; font-weight: 800; color: var(--text-dark); margin-bottom: 20px; text-align: center; }
+        /* ACCORDION (THÁNG -> NGÀY -> TỪ VỰNG) */
+        .section-title { font-size: 24px; font-weight: 900; color: var(--primary); margin-bottom: 25px; text-align: center; text-transform: uppercase; letter-spacing: 2px;}
         
-        /* Box chứa Ngày (Accordion) */
-        .date-group { margin-bottom: 15px; background: white; border-radius: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.03); overflow: hidden; border: 1px solid #edf2f7; }
-        .date-header {
-            padding: 18px 20px; background: linear-gradient(to right, #ffffff, #f8fafc); display: flex; justify-content: space-between; align-items: center;
-            font-size: 18px; font-weight: 800; color: var(--primary); cursor: pointer; user-select: none;
+        /* CẤP 1: THÁNG */
+        .month-group { margin-bottom: 20px; background: white; border-radius: 25px; box-shadow: 0 6px 20px rgba(56, 189, 248, 0.1); border: 2px solid #e0f2fe; overflow: hidden; }
+        .month-header {
+            padding: 20px 25px; background: linear-gradient(to right, #f0f9ff, #ffffff); display: flex; justify-content: space-between; align-items: center;
+            font-size: 22px; font-weight: 900; color: var(--primary); cursor: pointer; user-select: none;
         }
-        .date-header i { font-size: 20px; color: #cbd5e1; transition: 0.3s; }
-        .date-group.open .date-header i { transform: rotate(180deg); color: var(--primary); }
-        
+        .toggle-icon { font-size: 20px; transition: 0.3s; }
+        .month-group.open > .month-header .toggle-icon { transform: rotate(180deg); color: var(--accent); }
+        .month-content { display: none; padding: 15px; background: #f8fafc; }
+        .month-group.open > .month-content { display: block; animation: slideDown 0.3s ease-out; }
+
+        /* CẤP 2: NGÀY */
+        .date-group { margin-bottom: 15px; background: white; border-radius: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.03); border: 2px solid #f1f5f9; overflow: hidden; }
+        .date-header {
+            padding: 16px 20px; background: #ffffff; display: flex; justify-content: space-between; align-items: center;
+            font-size: 19px; font-weight: 800; color: var(--text-dark); cursor: pointer;
+        }
+        .date-group.open > .date-header .toggle-icon { transform: rotate(180deg); color: var(--primary); }
         .date-content { display: none; padding: 15px; background: #f8fafc; }
-        .date-group.open .date-content { display: block; animation: slideDown 0.3s ease-out; }
+        .date-group.open > .date-content { display: block; }
+
         @keyframes slideDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* Thẻ từ vựng (Card xổ xuống) */
-        .word-card { background: white; border-radius: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.04); margin-bottom: 12px; border-left: 5px solid var(--secondary); overflow: hidden; }
+        /* CẤP 3: THẺ TỪ VỰNG */
+        .word-card { background: white; border-radius: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); margin-bottom: 15px; border-left: 6px solid var(--accent); overflow: hidden; }
         .word-card:last-child { margin-bottom: 0; }
         
-        .word-header { padding: 16px 20px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; }
-        .w-jp { font-size: 26px; font-weight: 900; color: var(--text-dark); display: block; line-height: 1.2; margin-bottom: 5px; }
-        .w-vi { font-size: 18px; font-weight: 600; color: var(--text-gray); display: block; }
-        .w-icon { font-size: 20px; color: #cbd5e1; transition: 0.3s; }
-        .word-card.open .w-icon { transform: rotate(180deg); color: var(--secondary); }
+        .word-header { padding: 20px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; }
+        .w-jp { font-size: 34px; font-weight: 900; color: var(--text-dark); display: block; line-height: 1.2; margin-bottom: 8px; }
+        .w-vi { font-size: 22px; font-weight: 700; color: var(--text-gray); display: block; }
+        .word-card.open .word-header .toggle-icon { transform: rotate(180deg); color: var(--accent); }
 
         .word-body {
-            max-height: 0; overflow: hidden; transition: max-height 0.3s ease, padding 0.3s ease;
+            max-height: 0; overflow: hidden; transition: max-height 0.4s ease, padding 0.3s ease;
             background-color: #ffffff; border-top: 1px dashed transparent; padding: 0 20px;
         }
-        .word-card.open .word-body { max-height: 500px; padding: 18px 20px; border-top-color: #e2e8f0; }
+        .word-card.open .word-body { max-height: 1000px; padding: 20px; border-top-color: #e2e8f0; }
 
-        .detail-item { font-size: 17px; margin-bottom: 12px; line-height: 1.5; color: var(--text-dark); }
-        .detail-item span.label { font-weight: 800; color: var(--primary); display: inline-block; min-width: 85px; font-size: 15px; text-transform: uppercase; letter-spacing: 0.5px;}
+        .detail-item { font-size: 20px; margin-bottom: 16px; line-height: 1.6; color: var(--text-dark); }
+        .detail-item span.label { font-weight: 900; color: var(--primary); display: inline-block; min-width: 100px; font-size: 18px; text-transform: uppercase; }
         
-        /* Nút Loa */
-        .speaker-box { display: flex; align-items: center; gap: 10px; }
+        /* HIỆU ỨNG NGẮT DÒNG CHO SỐ (1. 2. 3.) */
+        .num-bullet { color: var(--accent); font-weight: 900; font-size: 22px; margin-right: 5px;}
+
+        /* NÚT LOA THÔNG MINH */
+        .speaker-box { display: flex; align-items: center; gap: 12px; }
         .speaker-btn {
-            background: #e0f2fe; color: #0284c7; border: none; width: 38px; height: 38px;
+            background: #e0f2fe; color: var(--primary); border: none; width: 45px; height: 45px;
             border-radius: 50%; display: flex; align-items: center; justify-content: center;
-            cursor: pointer; box-shadow: 0 4px 6px rgba(0,0,0,0.1); font-size: 16px;
+            cursor: pointer; box-shadow: 0 4px 10px rgba(56, 189, 248, 0.2); font-size: 22px;
         }
-        .speaker-btn:active { transform: scale(0.85); }
+        .speaker-btn:active { transform: scale(0.85); background: var(--primary); color: white;}
 
-        /* NÚT BACK TO TOP */
+        /* NÚT LÊN ĐẦU TRANG */
         #backToTop {
-            position: fixed; bottom: 25px; right: 25px; width: 55px; height: 55px;
-            background: var(--text-dark); color: white; border: none; border-radius: 50%;
-            font-size: 22px; box-shadow: 0 6px 15px rgba(0,0,0,0.3); display: none; z-index: 99;
-            align-items: center; justify-content: center;
+            position: fixed; bottom: 30px; right: 25px; width: 60px; height: 60px;
+            background: var(--accent); color: white; border: none; border-radius: 50%;
+            font-size: 26px; box-shadow: 0 6px 20px rgba(244, 114, 182, 0.4); display: none; z-index: 99;
+            align-items: center; justify-content: center; transition: 0.3s;
         }
+        #backToTop:active { transform: scale(0.9); }
 
-        .loading-screen { text-align: center; padding: 50px 20px; color: var(--text-gray); font-size: 18px; font-weight: bold;}
-        .loading-screen i { color: var(--primary); margin-bottom: 20px; }
+        .loading-screen { text-align: center; padding: 60px 20px; color: var(--primary); font-size: 22px; font-weight: 900;}
 
     </style>
 </head>
 <body>
 
-    <!-- NAVBAR -->
+    <!-- NAVBAR CUTE -->
     <nav class="navbar">
-        <button class="menu-btn" onclick="toggleMenu()"><i class="fas fa-bars"></i></button>
+        <button class="menu-btn" onclick="toggleMenu()">🎀</button>
         <h1>SHOKAIMONO</h1>
-        <div style="width: 26px;"></div>
+        <div style="width: 30px;"></div>
     </nav>
 
     <!-- SIDEBAR -->
     <div class="sidebar" id="sidebar">
         <div class="sidebar-header">
-            <button class="close-btn" onclick="toggleMenu()"><i class="fas fa-times"></i></button>
-            <h2>MENU</h2>
+            <button class="close-btn" onclick="toggleMenu()">✖</button>
+            <h2 style="font-size: 26px; font-weight: 900;">MENU HỌC TẬP ☁️</h2>
         </div>
         <ul class="nav-links">
-            <li onclick="switchTab('addSection')"><i class="fas fa-pen-nib"></i> Thêm từ mới</li>
-            <li onclick="loadVocab('VOCAB')"><i class="fas fa-book-open"></i> Học VOCAB</li>
-            <li onclick="loadVocab('ニュース')"><i class="fas fa-newspaper"></i> Học ニュース</li>
+            <li onclick="switchTab('addSection')">🌱 Thêm từ mới</li>
+            <li onclick="loadVocab('VOCAB')">📘 Ôn tập VOCAB</li>
+            <li onclick="loadVocab('ニュース')">📰 Ôn tập ニュース</li>
         </ul>
     </div>
     <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
@@ -187,22 +198,22 @@
         <section id="addSection" class="active">
             <div class="card">
                 <div class="input-group">
-                    <label>📂 Lưu vào thư mục</label>
+                    <label>📂 Chọn thư mục nè</label>
                     <select id="tabSelect">
                         <option value="VOCAB">Thẻ VOCAB</option>
                         <option value="ニュース">Thẻ ニュース</option>
                     </select>
                 </div>
                 <div class="input-group">
-                    <label>🇯🇵 Từ vựng (Kanji / Kana)</label>
-                    <input type="text" id="word" class="jp-input" placeholder="VD: 会社">
+                    <label>🇯🇵 Từ vựng (Kanji / Kana / Romaji)</label>
+                    <input type="text" id="word" class="jp-input" placeholder="VD: 会社 hoặc Hello">
                 </div>
                 <div class="input-group">
-                    <label>🇻🇳 Ý nghĩa</label>
+                    <label>🇻🇳 Ý nghĩa nha</label>
                     <input type="text" id="meaning" class="vi-text" placeholder="VD: Công ty">
                 </div>
                 <div class="input-group">
-                    <label>🏷️ Từ loại</label>
+                    <label>🏷️ Loại từ (Danh/Động/Tính)</label>
                     <input type="text" id="type" class="vi-text" placeholder="VD: Danh từ">
                 </div>
                 <div class="input-group">
@@ -210,15 +221,15 @@
                     <input type="text" id="pronun" class="jp-input" placeholder="VD: かいしゃ">
                 </div>
                 <div class="input-group">
-                    <label>📝 Câu ví dụ</label>
-                    <input type="text" id="example" class="jp-input" placeholder="VD: 会社に行きます。">
+                    <label>📝 Cho cái ví dụ đi</label>
+                    <input type="text" id="example" class="jp-input" placeholder="VD: 1. Ví dụ một. 2. Ví dụ hai.">
                 </div>
                 
-                <button class="btn-submit" onclick="addWord()"><i class="fas fa-save"></i> LƯU TỪ VỰNG</button>
+                <button class="btn-submit" onclick="addWord()">🌸 LƯU VÀO SỔ TAY 🌸</button>
             </div>
         </section>
 
-        <!-- SECTION 2: LIST TỪ VỰNG THEO NGÀY (ACCORDION) -->
+        <!-- SECTION 2: LIST TỪ VỰNG NHIỀU TẦNG -->
         <section id="listSection">
             <h3 id="listTitle" class="section-title"></h3>
             <div id="wordListContainer"></div>
@@ -226,10 +237,10 @@
 
     </main>
 
-    <button id="backToTop" onclick="scrollToTop()"><i class="fas fa-arrow-up"></i></button>
+    <button id="backToTop" onclick="scrollToTop()">🌸</button>
 
     <script>
-        // === LINK APP SCRIPT CỦA BẠN ===
+        // === GIỮ NGUYÊN LINK APP SCRIPT CỦA BẠN ===
         const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxZvWQlBHe7W7o9CYqM8_ADuaxygAppoJ4mt-IbcaJ7eJRjlcGs8XhV4eX0LU6F821n/exec'; 
 
         function toggleMenu() {
@@ -253,11 +264,11 @@
             let example = document.getElementById('example').value.trim();
 
             if (!word || !meaning) {
-                alert("Vui lòng nhập ít nhất Từ vựng và Ý nghĩa!"); return;
+                alert("Viết xíu Từ vựng với Ý nghĩa vào đi má ơi! 😠"); return;
             }
 
             let btn = document.querySelector('.btn-submit');
-            btn.innerHTML = '<i class="fas fa-circle-notch fa-spin"></i> ĐANG LƯU...';
+            btn.innerHTML = '⏳ ĐANG LƯU NÈ...';
             btn.disabled = true;
 
             fetch(SCRIPT_URL, {
@@ -265,138 +276,188 @@
                 headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
                 body: `tab=${tab}&word=${word}&meaning=${meaning}&type=${type}&pronun=${pronun}&example=${example}`
             }).then(response => {
-                alert("🎉 Lưu thành công!");
+                alert("🎉 Lưu thành công rồi nha!");
                 document.getElementById('word').value = "";
                 document.getElementById('meaning').value = "";
                 document.getElementById('type').value = "";
                 document.getElementById('pronun').value = "";
                 document.getElementById('example').value = "";
-                btn.innerHTML = '<i class="fas fa-save"></i> LƯU TỪ VỰNG';
+                btn.innerHTML = '🌸 LƯU VÀO SỔ TAY 🌸';
                 btn.disabled = false;
             }).catch(err => {
-                alert("Lỗi mạng rồi, thử lại nha!");
-                btn.innerHTML = '<i class="fas fa-save"></i> LƯU TỪ VỰNG';
+                alert("Mạng lác rồi, thử lại coi!");
+                btn.innerHTML = '🌸 LƯU VÀO SỔ TAY 🌸';
                 btn.disabled = false;
             });
         }
 
-        // Tải dữ liệu
         function loadVocab(tabName) {
             switchTab('listSection');
-            document.getElementById('listTitle').innerText = `📚 THƯ MỤC: ${tabName}`;
-            document.getElementById('wordListContainer').innerHTML = `<div class="loading-screen"><i class="fas fa-spinner fa-spin fa-3x"></i><p>Đang đồng bộ dữ liệu...</p></div>`;
+            document.getElementById('listTitle').innerText = `☁️ THƯ MỤC: ${tabName}`;
+            document.getElementById('wordListContainer').innerHTML = `<div class="loading-screen">⏳<br>Đang xoay dữ liệu ra...</div>`;
 
             fetch(SCRIPT_URL + "?tab=" + tabName)
                 .then(res => res.json())
                 .then(data => {
                     processData(data);
                 }).catch(err => {
-                    document.getElementById('wordListContainer').innerHTML = `<p style="text-align:center; color: red;">Lỗi tải dữ liệu. Vui lòng thử lại.</p>`;
+                    document.getElementById('wordListContainer').innerHTML = `<p style="text-align:center; color: red; font-size:20px;">Lỗi mạng. Tải lại trang dùm cái!</p>`;
                 });
         }
 
-        // Xử lý và Gom nhóm theo ngày
+        // HÀM TẠO XUỐNG DÒNG THÔNG MINH CHO SỐ (1. 2. 3.)
+        function formatLineBreaks(text) {
+            if (!text) return "";
+            // Tìm số (VD: 1. hoặc 2.) đằng trước có khoảng trắng hoặc nằm ở đầu câu, và thay thế bằng ngắt dòng
+            let formatted = text.replace(/(?:\s|^)(\d+[\.\)])/g, '<br><br><span class="num-bullet">$1</span>');
+            // Dọn dẹp khoảng trống thừa ở đầu nếu số 1. nằm ngay đầu câu
+            formatted = formatted.replace(/^(<br>)+/, '').trim();
+            return formatted;
+        }
+
+        // Gom nhóm: THÁNG -> NGÀY -> TỪ VỰNG
         function processData(data) {
-            let groupedByDate = {};
+            let groupedData = {}; // Cấu trúc: { "Tháng 08/2026": { "15/08/2026": [từ1, từ2] } }
             
-            // i = 1 để bỏ qua hàng tiêu đề trong Sheet
             for (let i = 1; i < data.length; i++) {
                 let row = data[i];
-                if (!row[0]) continue; // Bỏ qua nếu cột Từ vựng bị trống
+                if (!row[0]) continue; 
                 
-                // Lấy ngày, nếu trống thì đưa vào mục Chưa phân loại
-                let dateStr = row[2] ? row[2].toString().substring(0, 10) : "Chưa phân loại"; 
-                
-                if(!groupedByDate[dateStr]) groupedByDate[dateStr] = [];
-                groupedByDate[dateStr].push({
+                let rawDate = row[2] ? row[2].toString().substring(0, 10) : "Khác";
+                let dateStr = rawDate;
+                let monthStr = "Chưa phân loại";
+
+                // Phân tách Tháng từ định dạng ngày (Xử lý DD/MM/YYYY hoặc YYYY-MM-DD)
+                if (rawDate !== "Khác") {
+                    let parts = rawDate.includes('/') ? rawDate.split('/') : rawDate.split('-');
+                    if (parts.length >= 3) {
+                        if (rawDate.includes('/')) {
+                            monthStr = "Tháng " + parts[1] + "/" + parts[2]; // DD/MM/YYYY
+                        } else {
+                            monthStr = "Tháng " + parts[1] + "/" + parts[0]; // YYYY-MM-DD
+                        }
+                    }
+                }
+
+                if (!groupedData[monthStr]) groupedData[monthStr] = {};
+                if (!groupedData[monthStr][dateStr]) groupedData[monthStr][dateStr] = [];
+
+                groupedData[monthStr][dateStr].push({
                     word: row[0] || "",
-                    meaning: row[1] || "",
+                    meaning: formatLineBreaks(row[1] || ""),  // Đã gắn tự xuống dòng cho Ý nghĩa
                     type: row[3] || "---",
                     pronun: row[4] || "---",
-                    example: row[5] || "---"
+                    example: formatLineBreaks(row[5] || "")   // Đã gắn tự xuống dòng cho Ví dụ
                 });
             }
-            renderAccordions(groupedByDate);
+            renderNestedAccordions(groupedData);
         }
 
-        // In ra màn hình dạng Accordion giữ nguyên các ngày
-        function renderAccordions(groupedByDate) {
+        function renderNestedAccordions(groupedData) {
             let container = document.getElementById('wordListContainer');
             container.innerHTML = "";
             
-            let dates = Object.keys(groupedByDate).sort((a,b) => {
+            // Xếp Tháng mới nhất lên trên
+            let months = Object.keys(groupedData).sort((a,b) => {
                 if(a === "Chưa phân loại") return 1;
-                return new Date(b.split('/').reverse().join('-')) - new Date(a.split('/').reverse().join('-'));
+                return b.localeCompare(a); // So sánh chuỗi Tháng (Sẽ đúng nếu định dạng MM/YYYY ổn định định dạng)
             });
 
-            if(dates.length === 0) {
-                container.innerHTML = `<p style="text-align:center;">Chưa có từ vựng nào trong thư mục này.</p>`;
+            if(months.length === 0) {
+                container.innerHTML = `<p style="text-align:center; font-size:20px;">Trống trơn à, nhập thêm từ đi!</p>`;
                 return;
             }
 
             let html = "";
-            dates.forEach((date, index) => {
-                let words = groupedByDate[date].reverse(); // Từ mới nhất của ngày đó lên đầu
-                let isOpen = index === 0 ? "open" : ""; // Mặc định xổ xuống ngày mới nhất đầu tiên
-
+            months.forEach((month, mIndex) => {
+                let isMonthOpen = mIndex === 0 ? "open" : ""; // Mở sẵn Tháng đầu tiên
+                
                 html += `
-                <div class="date-group ${isOpen}">
-                    <div class="date-header" onclick="toggleDateGroup(this)">
-                        <span>📅 ${date} <span style="font-size:14px; color:#636e72;">(${words.length} từ)</span></span>
-                        <i class="fas fa-chevron-down"></i>
+                <div class="month-group ${isMonthOpen}">
+                    <div class="month-header" onclick="toggleParent(this, 'month-group')">
+                        <span>🎀 ${month}</span>
+                        <span class="toggle-icon">🔽</span>
                     </div>
-                    <div class="date-content">
+                    <div class="month-content">
                 `;
 
-                words.forEach(w => {
-                    html += `
-                    <div class="word-card">
-                        <div class="word-header" onclick="toggleCard(this)">
-                            <div>
-                                <span class="w-jp jp-text">${w.word}</span>
-                                <span class="w-vi vi-text">${w.meaning}</span>
-                            </div>
-                            <i class="fas fa-chevron-down w-icon"></i>
-                        </div>
-                        <div class="word-body">
-                            <div class="detail-item"><span class="label">Từ loại:</span> <span class="vi-text">${w.type}</span></div>
-                            
-                            <div class="detail-item speaker-box">
-                                <span class="label">Cách đọc:</span> <span class="jp-text" style="font-size: 19px;">${w.pronun}</span>
-                                <!-- NÚT LOA Ở ĐÂY SẼ ĐỌC TỪ VỰNG CHÍNH (w.word) -->
-                                ${w.pronun !== "---" ? `<button class="speaker-btn" onclick="speakText('${w.word}')"><i class="fas fa-volume-up"></i></button>` : ''}
-                            </div>
-
-                            <div class="detail-item"><span class="label">Ví dụ:</span> <span class="jp-text" style="font-size: 18px;">${w.example}</span></div>
-                        </div>
-                    </div>`;
+                // Xếp Ngày mới nhất lên trên trong Tháng
+                let dates = Object.keys(groupedData[month]).sort((a,b) => {
+                    return new Date(b.split('/').reverse().join('-')) - new Date(a.split('/').reverse().join('-'));
                 });
 
-                html += `</div></div>`;
+                dates.forEach((date, dIndex) => {
+                    let words = groupedData[month][date].reverse();
+                    let isDateOpen = (mIndex === 0 && dIndex === 0) ? "open" : ""; // Mở sẵn Ngày mới nhất
+
+                    html += `
+                    <div class="date-group ${isDateOpen}">
+                        <div class="date-header" onclick="toggleParent(this, 'date-group')">
+                            <span>📅 Ngày ${date} <span style="color:#94a3b8; font-size: 16px;">(${words.length} từ)</span></span>
+                            <span class="toggle-icon">🔽</span>
+                        </div>
+                        <div class="date-content">
+                    `;
+
+                    words.forEach(w => {
+                        html += `
+                        <div class="word-card">
+                            <div class="word-header" onclick="toggleParent(this, 'word-card')">
+                                <div>
+                                    <span class="w-jp jp-text">${w.word}</span>
+                                    <span class="w-vi vi-text">${w.meaning}</span>
+                                </div>
+                                <span class="toggle-icon">🔽</span>
+                            </div>
+                            <div class="word-body">
+                                <div class="detail-item"><span class="label">Từ loại:</span> <span class="vi-text" style="font-weight:700;">${w.type}</span></div>
+                                
+                                <div class="detail-item speaker-box">
+                                    <span class="label">Cách đọc:</span> <span class="jp-text" style="font-size: 24px; font-weight:900; color:var(--primary);">${w.pronun}</span>
+                                    ${w.pronun !== "---" ? `<button class="speaker-btn" onclick="detectLangAndSpeak('${w.word}')">🔊</button>` : ''}
+                                </div>
+
+                                <div class="detail-item"><span class="label">Ví dụ:</span> <div class="jp-text" style="font-size: 22px; padding-top: 5px;">${w.example}</div></div>
+                            </div>
+                        </div>`;
+                    });
+
+                    html += `</div></div>`; // Đóng date-group
+                });
+
+                html += `</div></div>`; // Đóng month-group
             });
 
             container.innerHTML = html;
         }
 
-        // Đóng/mở nhóm Ngày
-        function toggleDateGroup(headerEl) {
-            headerEl.parentElement.classList.toggle('open');
+        // Hàm Đóng/Mở chung cho cả 3 cấp Accordion
+        function toggleParent(headerEl, parentClass) {
+            let parentBox = headerEl.closest('.' + parentClass);
+            parentBox.classList.toggle('open');
         }
 
-        // Đóng/mở chi tiết Từ vựng
-        function toggleCard(headerEl) {
-            let card = headerEl.parentElement;
-            // Dòng này giúp đóng các từ khác khi mở 1 từ. Nếu muốn mở cùng lúc nhiều từ thì xóa dòng dưới đi.
-            card.parentElement.querySelectorAll('.word-card').forEach(c => { if(c !== card) c.classList.remove('open'); });
-            card.classList.toggle('open');
-        }
-
-        // Phát âm từ vựng (Sử dụng Từ Kanji chính)
-        function speakText(text) {
+        // HÀM NHẬN DIỆN NGÔN NGỮ ĐỂ PHÁT ÂM (AI)
+        function detectLangAndSpeak(text) {
             window.speechSynthesis.cancel();
             let utterance = new SpeechSynthesisUtterance(text);
-            utterance.lang = 'ja-JP'; 
-            utterance.rate = 0.9; // Đọc chậm lại một xíu cho rõ
+            
+            // Logic quét ngôn ngữ:
+            if (/[\u3040-\u309F\u30A0-\u30FF]/.test(text)) {
+                // Chứa Hiragana/Katakana -> Tiếng Nhật
+                utterance.lang = 'ja-JP';
+            } else if (/[\u4E00-\u9FFF]/.test(text)) {
+                // Chứa Chữ Hán nhưng KHÔNG có Kana -> Tiếng Trung
+                utterance.lang = 'zh-CN';
+            } else if (/[a-zA-Z]/.test(text)) {
+                // Chứa chữ cái ABC -> Tiếng Anh
+                utterance.lang = 'en-US';
+            } else {
+                // Còn lại quy về tiếng Nhật
+                utterance.lang = 'ja-JP';
+            }
+            
+            utterance.rate = 0.85; // Đọc chậm một chút cho rõ
             window.speechSynthesis.speak(utterance);
         }
 
