@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>App Học Từ Vựng</title>
+</head>
+<body>
+    <h1>App Ôn Từ Vựng Của Yến</h1>
+    
+    <!-- KHU VỰC 1: NHẬP TỪ MỚI -->
+    <h3>Nhập từ mới</h3>
+    <select id="tabSelect">
+        <option value="VOCAB">Vào tab VOCAB</option>
+        <option value="ニュース">Vào tab ニュース</option>
+    </select>
+    <input type="text" id="word" placeholder="Từ vựng (VD: 会社)">
+    <input type="text" id="meaning" placeholder="Nghĩa (VD: Công ty)">
+    <button onclick="addWord()">Thêm vào Sheet</button>
+
+    <!-- KHU VỰC 2: XEM TỪ VỰNG -->
+    <h3>Danh sách từ vựng</h3>
+    <button onclick="loadVocab('VOCAB')">Tải từ VOCAB</button>
+    <button onclick="loadVocab('ニュース')">Tải từ ニュース</button>
+    <ul id="wordList"></ul>
+
+    <script>
+        // DÁN CÁI LINK WEB APP (TỪ PHẦN 1) VÀO ĐÂY
+        const SCRIPT_URL = 'https://script.google.com/macros/s/TÊN_LINK_CỦA_BẠN/exec';
+
+        // Lệnh gửi từ mới lên Sheet
+        function addWord() {
+            let tab = document.getElementById('tabSelect').value;
+            let word = document.getElementById('word').value;
+            let meaning = document.getElementById('meaning').value;
+
+            fetch(SCRIPT_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: `tab=${tab}&word=${word}&meaning=${meaning}`
+            }).then(response => {
+                alert("Đã thêm thành công vào sheet!");
+            });
+        }
+
+        // Lệnh lấy từ vựng từ Sheet về xem
+        function loadVocab(tabName) {
+            document.getElementById('wordList').innerHTML = "Đang tải...";
+            fetch(SCRIPT_URL + "?tab=" + tabName)
+                .then(res => res.json())
+                .then(data => {
+                    let list = document.getElementById('wordList');
+                    list.innerHTML = "";
+                    // Bỏ qua hàng tiêu đề đầu tiên (i=1)
+                    for (let i = 1; i < data.length; i++) { 
+                        list.innerHTML += `<li><b>${data[i][0]}</b>: ${data[i][1]}</li>`;
+                    }
+                });
+        }
+    </script>
+</body>
+</html>
