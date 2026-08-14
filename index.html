@@ -100,35 +100,36 @@
         }
         button.btn-submit:active { transform: scale(0.95); }
 
-        .section-title { font-size: 24px; font-weight: 900; color: var(--primary); margin-bottom: 25px; text-align: center; text-transform: uppercase; letter-spacing: 1px;}
+        .section-title { font-size: 24px; font-weight: 900; color: var(--primary); margin-bottom: 15px; text-align: center; text-transform: uppercase; letter-spacing: 1px;}
         
-        .month-group { margin-bottom: 20px; background: white; border-radius: 25px; box-shadow: 0 6px 20px rgba(56, 189, 248, 0.1); border: 2px solid #e0f2fe; overflow: hidden; }
-        .month-header {
-            padding: 20px 25px; background: linear-gradient(to right, #f0f9ff, #ffffff); display: flex; justify-content: space-between; align-items: center;
-            font-size: 22px; font-weight: 900; color: var(--primary); cursor: pointer; user-select: none;
-        }
-        .toggle-icon { font-size: 20px; transition: 0.3s; }
-        .month-group.open > .month-header .toggle-icon { transform: rotate(180deg); color: var(--accent); }
-        .month-content { display: none; padding: 15px; background: #f8fafc; }
-        .month-group.open > .month-content { display: block; animation: slideDown 0.3s ease-out; }
+        /* === GIAO DIỆN LỊCH === */
+        .calendar-wrapper { background: white; border-radius: 25px; padding: 20px; box-shadow: 0 6px 20px rgba(56, 189, 248, 0.15); border: 2px solid #e0f2fe; margin-bottom: 25px; }
+        .calendar-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
+        .calendar-header button { background: var(--e0f2fe); border: none; font-size: 20px; color: var(--primary); width: 40px; height: 40px; border-radius: 12px; cursor: pointer; transition: 0.2s; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+        .calendar-header button:active { transform: scale(0.9); }
+        .calendar-title { font-size: 20px; font-weight: 900; color: var(--text-dark); }
+        
+        .calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 8px; text-align: center; }
+        .day-name { font-weight: 900; color: var(--text-gray); font-size: 14px; margin-bottom: 5px; }
+        .day-cell { padding: 12px 0; border-radius: 12px; font-size: 16px; font-weight: 700; background: #f8fafc; color: var(--text-gray); cursor: pointer; transition: 0.3s; position: relative; border: 2px solid transparent;}
+        .day-cell.empty { background: transparent; pointer-events: none; }
+        
+        /* Ngày có dữ liệu */
+        .day-cell.has-data { background: var(--primary); color: white; box-shadow: 0 4px 10px rgba(56, 189, 248, 0.4); }
+        .day-cell.has-data.tab-moi { background: var(--accent); box-shadow: 0 4px 10px rgba(244, 114, 182, 0.4); } /* Đổi màu nếu ở Tab Mới */
+        
+        /* Hiệu ứng chọn ngày */
+        .day-cell.selected { border-color: #1e293b; transform: scale(1.1); z-index: 10; font-weight: 900;}
 
-        .date-group { margin-bottom: 15px; background: white; border-radius: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.03); border: 2px solid #f1f5f9; overflow: hidden; }
-        .date-header {
-            padding: 16px 20px; background: #ffffff; display: flex; justify-content: space-between; align-items: center;
-            font-size: 19px; font-weight: 800; color: var(--text-dark); cursor: pointer;
-        }
-        .date-group.open > .date-header .toggle-icon { transform: rotate(180deg); color: var(--primary); }
-        .date-content { display: none; padding: 15px; background: #f8fafc; }
-        .date-group.open > .date-content { display: block; }
-
-        @keyframes slideDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+        /* HIỂN THỊ TỪ VỰNG */
+        .selected-date-title { font-size: 20px; font-weight: 900; color: var(--text-dark); margin-bottom: 15px; padding-bottom: 10px; border-bottom: 2px dashed #bae6fd; display: none;}
 
         .word-card { background: white; border-radius: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); margin-bottom: 15px; border-left: 6px solid var(--accent); overflow: hidden; position: relative; transition: all 0.3s;}
-        .word-card:last-child { margin-bottom: 0; }
         
         .word-header { padding: 20px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; }
         .w-jp { font-size: 34px; font-weight: 900; color: var(--text-dark); display: block; line-height: 1.2;}
         .w-new-badge { font-size: 14px; background: #fef08a; color: #ca8a04; padding: 4px 8px; border-radius: 10px; font-weight: 800; margin-left: 10px; vertical-align: middle; font-family: var(--font-vi);}
+        .w-done-badge { font-size: 14px; background: #d1fae5; color: #047857; padding: 4px 8px; border-radius: 10px; font-weight: 800; margin-left: 10px; vertical-align: middle; font-family: var(--font-vi);}
         
         .word-card.open .word-header .toggle-icon { transform: rotate(180deg); color: var(--accent); }
 
@@ -187,7 +188,6 @@
             <button class="close-btn" onclick="toggleMenu()">✖</button>
             <h2 style="font-size: 26px; font-weight: 900; font-family: var(--font-vi);">MENU ☁️</h2>
         </div>
-        <!-- THỨ TỰ TAB ĐƯỢC CHỈNH LẠI CHUẨN XÁC -->
         <ul class="nav-links">
             <li onclick="loadVocab('VOCAB', 'VOCAB')">🌸 Kho VOCAB</li>
             <li onclick="loadVocab('ニュース', 'ニュース')">💮 Kho ニュース</li>
@@ -200,7 +200,7 @@
 
     <main class="container">
         
-        <section id="addSection" class="active">
+        <section id="addSection">
             <div class="card">
                 <div class="input-group">
                     <label>🌸 Chọn nơi lưu (Kho gốc)</label>
@@ -234,8 +234,23 @@
             </div>
         </section>
 
-        <section id="listSection">
-            <h3 id="listTitle" class="section-title"></h3>
+        <section id="listSection" class="active">
+            <h3 id="listTitle" class="section-title">🌸 Kho VOCAB</h3>
+            
+            <!-- GIAO DIỆN LỊCH MỚI -->
+            <div class="calendar-wrapper">
+                <div class="calendar-header">
+                    <button onclick="changeMonth(-1)"><i class="fas fa-chevron-left"></i></button>
+                    <div class="calendar-title" id="calMonthYear">Tháng / Năm</div>
+                    <button onclick="changeMonth(1)"><i class="fas fa-chevron-right"></i></button>
+                </div>
+                <div class="calendar-grid" id="calGrid">
+                    <!-- Javascript sẽ vẽ lưới ngày vào đây -->
+                </div>
+            </div>
+
+            <!-- CHỖ HIỂN THỊ TỪ VỰNG CỦA NGÀY -->
+            <div id="selectedDateTitle" class="selected-date-title"></div>
             <div id="wordListContainer"></div>
         </section>
 
@@ -247,9 +262,19 @@
         // === LINK APP SCRIPT ===
         const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw9HeNZEnE-kqo-wJePWhnoUiqin3kQbcf9LX4WppLtfwgPEwM5BxXlAkAVtfc5MyJi/exec'; 
 
-        let currentViewMode = ""; // Tab hiển thị: VOCAB, ニュース, Mới_VOCAB, Mới_ニュース
-        let currentSourceTab = ""; // Thư mục gốc tương ứng: VOCAB, ニュース
-        let targetScrollWord = null; // Biến dùng để nhảy đến từ gốc
+        let currentViewMode = "VOCAB"; 
+        let currentSourceTab = "VOCAB"; 
+        let globalGroupedData = {}; // Chứa toàn bộ dữ liệu { "05/08/2026": [word1, word2] }
+        
+        let displayMonth = new Date().getMonth(); 
+        let displayYear = new Date().getFullYear();
+        let targetScrollWord = null; 
+        let targetScrollDate = null;
+
+        // MỚI VÀO WEB LÀ TẢI NGAY LỊCH VOCAB
+        window.onload = function() {
+            loadVocab('VOCAB', 'VOCAB');
+        };
 
         function toggleMenu() {
             document.getElementById("sidebar").classList.toggle("active");
@@ -263,7 +288,6 @@
             if(document.getElementById("sidebar").classList.contains("active")) toggleMenu();
         }
 
-        // KHI THÊM TỪ: Status sẽ trống "", tức là CHỈ nằm ở Kho, KHÔNG nằm ở Tab Mới
         function addWord() {
             let tab = document.getElementById('tabSelect').value;
             let word = document.getElementById('word').value.trim();
@@ -287,7 +311,7 @@
                 headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
                 body: bodyData
             }).then(response => {
-                alert("🎉 Lưu thành công!\nTừ đã được thêm vào Kho gốc. Hãy vào Kho bấm 'Thêm vào Tab Mới' để bắt đầu học nhé!");
+                alert("🎉 Lưu thành công!\nTừ đã được thêm vào Kho gốc.");
                 document.getElementById('word').value = "";
                 document.getElementById('meaning').value = "";
                 document.getElementById('type').value = "";
@@ -308,52 +332,20 @@
             currentSourceTab = sourceTab;
             switchTab('listSection');
             
-            // Xử lý tiêu đề hiển thị
             let displayTitle = viewMode.startsWith("Mới") ? `🏵️ TAB MỚI: ${sourceTab}` : `🌸 KHO: ${sourceTab}`;
             document.getElementById('listTitle').innerText = displayTitle;
             
+            // Xóa rỗng list cũ khi đổi Tab
             document.getElementById('wordListContainer').innerHTML = `<div class="loading-screen">⏳<br>Đang tải dữ liệu...</div>`;
+            document.getElementById('selectedDateTitle').style.display = 'none';
 
             fetch(SCRIPT_URL + "?tab=" + sourceTab)
                 .then(res => res.json())
                 .then(data => {
                     processData(data, viewMode, sourceTab);
-
-                    // XỬ LÝ NHẢY ĐẾN TỪ GỐC
-                    if (targetScrollWord) {
-                        setTimeout(() => {
-                            let safeWord = targetScrollWord.replace(/"/g, '\\"');
-                            let card = document.querySelector(`.word-card[data-word="${safeWord}"]`);
-                            if (card) {
-                                let dGroup = card.closest('.date-group');
-                                if(dGroup) dGroup.classList.add('open');
-                                let mGroup = card.closest('.month-group');
-                                if(mGroup) mGroup.classList.add('open');
-                                
-                                card.classList.add('open');
-                                card.scrollIntoView({behavior: 'smooth', block: 'center'});
-                                
-                                // Hiệu ứng chớp sáng để nhận biết
-                                card.style.boxShadow = "0 0 25px var(--warning)";
-                                card.style.borderLeft = "6px solid var(--warning)";
-                                setTimeout(() => {
-                                    card.style.boxShadow = "0 4px 15px rgba(0,0,0,0.05)";
-                                    card.style.borderLeft = "6px solid var(--accent)";
-                                }, 3000);
-                            }
-                            targetScrollWord = null; // Reset
-                        }, 400); // Đợi load giao diện xong mới cuộn
-                    }
-
                 }).catch(err => {
                     document.getElementById('wordListContainer').innerHTML = `<p style="text-align:center; color: red; font-size:20px;">Lỗi mạng. Tải lại trang dùm cái!</p>`;
                 });
-        }
-
-        // LỆNH CHUYỂN TRANG NHẢY TỚI GỐC
-        function jumpToOrigin(word, sourceTab) {
-            targetScrollWord = word;
-            loadVocab(sourceTab, sourceTab); // Chuyển sang tải Kho gốc
         }
 
         function formatLineBreaks(text) {
@@ -363,9 +355,8 @@
             return formatted;
         }
 
-        // LỌC TỪ THEO YÊU CẦU: Tab mới chỉ hiển thị từ có Status = "Cần ôn"
         function processData(data, viewMode, sourceTab) {
-            let groupedData = {}; 
+            globalGroupedData = {}; 
             
             for (let i = 1; i < data.length; i++) {
                 let row = data[i];
@@ -373,30 +364,31 @@
                 
                 let status = row[6] || ""; 
                 
-                // LỌC TỪ: Nếu đang xem "Mới", thì chỉ nhặt những từ có chữ "Cần ôn"
                 if (viewMode.startsWith("Mới")) {
                     if (status !== "Cần ôn") continue; 
                 }
 
                 let rawDate = row[2] ? row[2].toString().substring(0, 10) : "Khác";
+                
+                // Định dạng lại thành chuẩn DD/MM/YYYY cho Lịch
                 let dateStr = rawDate;
-                let monthStr = "Chưa phân loại";
-
                 if (rawDate !== "Khác") {
                     let parts = rawDate.includes('/') ? rawDate.split('/') : rawDate.split('-');
                     if (parts.length >= 3) {
+                        let d = parts[0]; let m = parts[1]; let y = parts[2];
                         if (rawDate.includes('/')) {
-                            monthStr = "Tháng " + parts[1] + "/" + parts[2]; 
+                            // Sheet ra kiểu M/D/YYYY hoặc D/M/YYYY tùy máy, giả định Utilities trả dd/MM/yyyy
+                            d = parts[0]; m = parts[1]; y = parts[2];
                         } else {
-                            monthStr = "Tháng " + parts[1] + "/" + parts[0]; 
+                            y = parts[0]; m = parts[1]; d = parts[2]; // YYYY-MM-DD
                         }
+                        dateStr = `${d.padStart(2,'0')}/${m.padStart(2,'0')}/${y}`;
                     }
                 }
 
-                if (!groupedData[monthStr]) groupedData[monthStr] = {};
-                if (!groupedData[monthStr][dateStr]) groupedData[monthStr][dateStr] = [];
+                if (!globalGroupedData[dateStr]) globalGroupedData[dateStr] = [];
 
-                groupedData[monthStr][dateStr].push({
+                globalGroupedData[dateStr].push({
                     word: row[0] || "",
                     meaning: formatLineBreaks(row[1] || ""), 
                     type: row[3] || "---",
@@ -405,109 +397,194 @@
                     status: status
                 });
             }
-            renderNestedAccordions(groupedData, viewMode, sourceTab);
+
+            document.getElementById('wordListContainer').innerHTML = ""; // Xóa dòng chữ Loading
+
+            // Nếu đang "Đi tới gốc", thiết lập Tháng/Năm khớp với từ đó
+            if (targetScrollDate) {
+                let parts = targetScrollDate.split('/');
+                if(parts.length === 3) {
+                    displayMonth = parseInt(parts[1]) - 1;
+                    displayYear = parseInt(parts[2]);
+                }
+            } else {
+                // Không đi tới gốc thì load tháng hiện tại
+                displayMonth = new Date().getMonth(); 
+                displayYear = new Date().getFullYear();
+            }
+
+            renderCalendar(displayMonth, displayYear);
+
+            // Tự động mở list từ nếu đang Nhảy tới gốc
+            if (targetScrollDate && targetScrollWord) {
+                showWordsForDate(targetScrollDate, null);
+            }
         }
 
-        function renderNestedAccordions(groupedData, viewMode, sourceTab) {
-            let container = document.getElementById('wordListContainer');
-            container.innerHTML = "";
+        // === HÀM VẼ LỊCH CHUẨN ===
+        function renderCalendar(month, year) {
+            const monthNames = ["Tháng 1", "Tháng 2", "Tháng 3", "Tháng 4", "Tháng 5", "Tháng 6", "Tháng 7", "Tháng 8", "Tháng 9", "Tháng 10", "Tháng 11", "Tháng 12"];
+            document.getElementById('calMonthYear').innerText = `🌸 ${monthNames[month]} / ${year}`;
+
+            // Tìm ngày đầu tiên của tháng (0=CN, 1=T2...)
+            let firstDay = new Date(year, month, 1).getDay(); 
+            // Nếu muốn T2 bắt đầu thì sửa lại logic, nhưng CN ở đầu cho chuẩn quốc tế
             
-            let months = Object.keys(groupedData).sort((a,b) => {
-                if(a === "Chưa phân loại") return 1;
-                return b.localeCompare(a); 
+            let daysInMonth = new Date(year, month + 1, 0).getDate();
+
+            let grid = document.getElementById('calGrid');
+            grid.innerHTML = '';
+
+            const dayNames = ['CN', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7'];
+            dayNames.forEach(d => {
+                grid.innerHTML += `<div class="day-name">${d}</div>`;
             });
 
-            if(months.length === 0) {
-                container.innerHTML = `<p style="text-align:center; font-size:20px; font-weight:800; color:var(--text-gray);">Hiện chưa có từ vựng nào ở đây. 🌸</p>`;
+            // Ô trống đầu tháng
+            for (let i = 0; i < firstDay; i++) {
+                grid.innerHTML += `<div class="day-cell empty"></div>`;
+            }
+
+            // Vẽ các ngày
+            for (let d = 1; d <= daysInMonth; d++) {
+                let dayStr = d.toString().padStart(2, '0');
+                let monthStr = (month + 1).toString().padStart(2, '0');
+                let fullDateStr = `${dayStr}/${monthStr}/${year}`;
+
+                let hasData = globalGroupedData[fullDateStr] && globalGroupedData[fullDateStr].length > 0;
+                
+                let cls = "day-cell";
+                if (hasData) {
+                    cls += currentViewMode.startsWith("Mới") ? " has-data tab-moi" : " has-data";
+                }
+
+                // Nếu là ngày đang được Jump to Origin
+                if (targetScrollDate === fullDateStr) {
+                    cls += " selected";
+                }
+
+                grid.innerHTML += `<div class="${cls}" onclick="showWordsForDate('${fullDateStr}', this)">${d}</div>`;
+            }
+        }
+
+        function changeMonth(step) {
+            displayMonth += step;
+            if (displayMonth < 0) { displayMonth = 11; displayYear--; }
+            else if (displayMonth > 11) { displayMonth = 0; displayYear++; }
+            renderCalendar(displayMonth, displayYear);
+            document.getElementById('wordListContainer').innerHTML = "";
+            document.getElementById('selectedDateTitle').style.display = 'none';
+        }
+
+        // BẤM VÀO NGÀY TRÊN LỊCH -> HIỆN TỪ VỰNG
+        function showWordsForDate(dateStr, cellElement) {
+            // Xóa viền selected cũ
+            document.querySelectorAll('.day-cell').forEach(el => el.classList.remove('selected'));
+            // Highlight ô vừa bấm (nếu bấm bằng chuột)
+            if (cellElement) {
+                cellElement.classList.add('selected');
+            } else {
+                // Nhảy tới gốc (Tự động tìm ô ngày đó để highlight)
+                let d = parseInt(dateStr.split('/')[0]);
+                let cells = document.querySelectorAll('.day-cell:not(.empty)');
+                cells.forEach(c => {
+                    if (parseInt(c.innerText) === d) c.classList.add('selected');
+                });
+            }
+
+            let words = globalGroupedData[dateStr] || [];
+            let container = document.getElementById('wordListContainer');
+            let titleArea = document.getElementById('selectedDateTitle');
+
+            if (words.length === 0) {
+                titleArea.style.display = "block";
+                titleArea.innerHTML = `📅 Ngày ${dateStr} <br><span style="font-size:16px; color:var(--text-gray); font-weight:normal;">(Không có từ nào ở đây)</span>`;
+                container.innerHTML = "";
                 return;
             }
 
+            titleArea.style.display = "block";
+            titleArea.innerHTML = `📅 Từ vựng Ngày ${dateStr} <span style="font-size:16px; color:#94a3b8;">(${words.length} từ)</span>`;
+
+            // Đảo ngược để từ mới nhất lên trên
+            let wordsReversed = [...words].reverse();
             let html = "";
-            months.forEach((month, mIndex) => {
-                let isMonthOpen = mIndex === 0 ? "open" : ""; 
-                
+
+            wordsReversed.forEach(w => {
+                let badgeHtml = "";
+                let actionButtonsHtml = "";
+                let safeWordAttr = w.word.replace(/"/g, '&quot;'); 
+
+                if (currentViewMode.startsWith("Mới")) {
+                    actionButtonsHtml += `<button class="btn-action btn-success" onclick="updateStatus('${safeWordAttr}', '', this, '${currentViewMode}', '${dateStr}')">✅ Đã thuộc (Xóa khỏi Tab Mới)</button>`;
+                    actionButtonsHtml += `<button class="btn-action btn-link" onclick="jumpToOrigin('${safeWordAttr}', '${currentSourceTab}', '${dateStr}')">🔗 Đi tới gốc từ vựng này</button>`;
+                } else {
+                    if (w.status === "Cần ôn") {
+                        badgeHtml = `<span class="w-new-badge">Đang ở Tab Mới</span>`;
+                        actionButtonsHtml += `<button class="btn-action btn-undo" onclick="updateStatus('${safeWordAttr}', '', this, '${currentViewMode}', '${dateStr}')">❌ Bỏ khỏi Tab Mới</button>`;
+                    } else {
+                        actionButtonsHtml += `<button class="btn-action btn-warning" onclick="updateStatus('${safeWordAttr}', 'Cần ôn', this, '${currentViewMode}', '${dateStr}')">⭐ Thêm vào Tab Mới</button>`;
+                    }
+                }
+
                 html += `
-                <div class="month-group ${isMonthOpen}">
-                    <div class="month-header" onclick="toggleParent(this, 'month-group')">
-                        <span>🎀 ${month}</span>
+                <div class="word-card" data-word="${safeWordAttr}">
+                    <div class="word-header" onclick="toggleParent(this, 'word-card')">
+                        <div>
+                            <span class="w-jp jp-text">${w.word} ${badgeHtml}</span>
+                        </div>
                         <span class="toggle-icon">🔽</span>
                     </div>
-                    <div class="month-content">
-                `;
-
-                let dates = Object.keys(groupedData[month]).sort((a,b) => {
-                    return new Date(b.split('/').reverse().join('-')) - new Date(a.split('/').reverse().join('-'));
-                });
-
-                dates.forEach((date, dIndex) => {
-                    let words = groupedData[month][date].reverse();
-                    let isDateOpen = (mIndex === 0 && dIndex === 0) ? "open" : ""; 
-
-                    html += `
-                    <div class="date-group ${isDateOpen}">
-                        <div class="date-header" onclick="toggleParent(this, 'date-group')">
-                            <span>📅 Ngày ${date} <span style="color:#94a3b8; font-size: 16px;">(${words.length} từ)</span></span>
-                            <span class="toggle-icon">🔽</span>
+                    <div class="word-body">
+                        <div class="detail-item speaker-box">
+                            <span class="label">Đọc:</span> <span class="jp-text" style="font-size: 24px; font-weight:900; color:var(--primary);">${w.pronun}</span>
+                            ${w.pronun !== "---" ? `<button class="speaker-btn" onclick="detectLangAndSpeak('${safeWordAttr}')">🔊</button>` : ''}
                         </div>
-                        <div class="date-content">
-                    `;
-
-                    words.forEach(w => {
-                        let badgeHtml = "";
-                        let actionButtonsHtml = "";
-
-                        let safeWordAttr = w.word.replace(/"/g, '&quot;'); // Chống lỗi nháy kép HTML
-
-                        if (viewMode.startsWith("Mới")) {
-                            // GIAO DIỆN Ở TAB MỚI
-                            actionButtonsHtml += `<button class="btn-action btn-success" onclick="updateStatus('${safeWordAttr}', '', this, '${viewMode}')">✅ Đã thuộc (Xóa khỏi Tab Mới)</button>`;
-                            actionButtonsHtml += `<button class="btn-action btn-link" onclick="jumpToOrigin('${safeWordAttr}', '${sourceTab}')">🔗 Đi tới gốc từ vựng này</button>`;
-                        } else {
-                            // GIAO DIỆN Ở KHO GỐC
-                            if (w.status === "Cần ôn") {
-                                badgeHtml = `<span class="w-new-badge">Đang ở Tab Mới</span>`;
-                                actionButtonsHtml += `<button class="btn-action btn-undo" onclick="updateStatus('${safeWordAttr}', '', this, '${viewMode}')">❌ Bỏ khỏi Tab Mới</button>`;
-                            } else {
-                                actionButtonsHtml += `<button class="btn-action btn-warning" onclick="updateStatus('${safeWordAttr}', 'Cần ôn', this, '${viewMode}')">⭐ Thêm vào Tab Mới</button>`;
-                            }
-                        }
-
-                        html += `
-                        <div class="word-card" data-word="${safeWordAttr}">
-                            <div class="word-header" onclick="toggleParent(this, 'word-card')">
-                                <div>
-                                    <span class="w-jp jp-text">${w.word} ${badgeHtml}</span>
-                                </div>
-                                <span class="toggle-icon">🔽</span>
-                            </div>
-                            <div class="word-body">
-                                <div class="detail-item speaker-box">
-                                    <span class="label">Đọc:</span> <span class="jp-text" style="font-size: 24px; font-weight:900; color:var(--primary);">${w.pronun}</span>
-                                    ${w.pronun !== "---" ? `<button class="speaker-btn" onclick="detectLangAndSpeak('${safeWordAttr}')">🔊</button>` : ''}
-                                </div>
-                                <div class="detail-item"><span class="label">Từ loại:</span> <span class="vi-text" style="font-weight:700;">${w.type}</span></div>
-                                <div class="detail-item"><span class="label">Ví dụ:</span> <div class="jp-text" style="font-size: 22px; padding-top: 5px;">${w.example}</div></div>
-                                
-                                <hr style="border-top: 2px dashed #bae6fd; margin: 20px 0;">
-                                <div class="detail-item"><span class="label" style="color:var(--accent);">Ý nghĩa:</span> <span class="vi-text" style="font-weight:800;">${w.meaning}</span></div>
-                                
-                                <div class="action-buttons">
-                                    ${actionButtonsHtml}
-                                </div>
-                            </div>
-                        </div>`;
-                    });
-
-                    html += `</div></div>`; 
-                });
-                html += `</div></div>`; 
+                        <div class="detail-item"><span class="label">Từ loại:</span> <span class="vi-text" style="font-weight:700;">${w.type}</span></div>
+                        <div class="detail-item"><span class="label">Ví dụ:</span> <div class="jp-text" style="font-size: 22px; padding-top: 5px;">${w.example}</div></div>
+                        
+                        <hr style="border-top: 2px dashed #bae6fd; margin: 20px 0;">
+                        <div class="detail-item"><span class="label" style="color:var(--accent);">Ý nghĩa:</span> <span class="vi-text" style="font-weight:800;">${w.meaning}</span></div>
+                        
+                        <div class="action-buttons">
+                            ${actionButtonsHtml}
+                        </div>
+                    </div>
+                </div>`;
             });
 
             container.innerHTML = html;
+
+            // Xử lý cuộn tới thẻ (Nếu đang nhảy từ Tab Mới qua Kho Gốc)
+            if (targetScrollWord) {
+                setTimeout(() => {
+                    let safeWord = targetScrollWord.replace(/"/g, '\\"');
+                    let card = document.querySelector(`.word-card[data-word="${safeWord}"]`);
+                    if (card) {
+                        card.classList.add('open');
+                        card.scrollIntoView({behavior: 'smooth', block: 'center'});
+                        card.style.boxShadow = "0 0 25px var(--warning)";
+                        card.style.borderLeft = "6px solid var(--warning)";
+                        setTimeout(() => {
+                            card.style.boxShadow = "0 4px 15px rgba(0,0,0,0.05)";
+                            card.style.borderLeft = "6px solid var(--accent)";
+                        }, 3000);
+                    }
+                    targetScrollWord = null; 
+                    targetScrollDate = null;
+                }, 100);
+            }
         }
 
-        // CẬP NHẬT TRẠNG THÁI (Đưa vào Mới / Đã Thuộc / Xóa khỏi Mới)
-        function updateStatus(wordToMark, newStatus, btnElement, viewMode) {
+        // LỆNH CHUYỂN TRANG NHẢY TỚI GỐC
+        function jumpToOrigin(word, sourceTab, dateStr) {
+            targetScrollWord = word;
+            targetScrollDate = dateStr;
+            loadVocab(sourceTab, sourceTab); 
+        }
+
+        // CẬP NHẬT TRẠNG THÁI
+        function updateStatus(wordToMark, newStatus, btnElement, viewMode, dateStr) {
             let originalText = btnElement.innerText;
             btnElement.innerHTML = '⏳ Đang xử lý...';
             btnElement.disabled = true;
@@ -520,23 +597,33 @@
                 body: bodyData
             }).then(response => {
                 if (viewMode.startsWith("Mới")) {
-                    // Nếu đang trong Tab Mới và bấm "Đã thuộc", từ sẽ bị gỡ mác "Cần ôn" và biến mất
                     let card = btnElement.closest('.word-card');
                     card.style.transition = "0.4s";
                     card.style.opacity = "0";
                     setTimeout(() => card.remove(), 400);
+
+                    // Xóa logic trong biến cục bộ để Lịch biết ngày này không còn từ mới nếu đã thuộc hết
+                    let targetArr = globalGroupedData[dateStr];
+                    if(targetArr) {
+                        for(let i=0; i<targetArr.length; i++){
+                            if(targetArr[i].word === wordToMark){
+                                targetArr.splice(i, 1); break;
+                            }
+                        }
+                        if(targetArr.length === 0) renderCalendar(displayMonth, displayYear); // Vẽ lại lịch tắt màu hồng nếu sạch từ
+                    }
+
                 } else {
-                    // Nếu đang trong Kho gốc, đổi thiết kế nút và Badge ngay lập tức
                     let actionBox = btnElement.closest('.action-buttons');
                     let badgeArea = btnElement.closest('.word-card').querySelector('.word-header div');
                     let safeWordAttr = wordToMark.replace(/"/g, '&quot;');
                     
                     if (newStatus === "Cần ôn") {
                         badgeArea.innerHTML = `<span class="w-jp jp-text">${wordToMark} <span class="w-new-badge">Đang ở Tab Mới</span></span>`;
-                        actionBox.innerHTML = `<button class="btn-action btn-undo" onclick="updateStatus('${safeWordAttr}', '', this, '${viewMode}')">❌ Bỏ khỏi Tab Mới</button>`;
+                        actionBox.innerHTML = `<button class="btn-action btn-undo" onclick="updateStatus('${safeWordAttr}', '', this, '${viewMode}', '${dateStr}')">❌ Bỏ khỏi Tab Mới</button>`;
                     } else {
                         badgeArea.innerHTML = `<span class="w-jp jp-text">${wordToMark}</span>`;
-                        actionBox.innerHTML = `<button class="btn-action btn-warning" onclick="updateStatus('${safeWordAttr}', 'Cần ôn', this, '${viewMode}')">⭐ Thêm vào Tab Mới</button>`;
+                        actionBox.innerHTML = `<button class="btn-action btn-warning" onclick="updateStatus('${safeWordAttr}', 'Cần ôn', this, '${viewMode}', '${dateStr}')">⭐ Thêm vào Tab Mới</button>`;
                     }
                 }
             }).catch(err => {
@@ -557,9 +644,9 @@
             let utterance = new SpeechSynthesisUtterance(text);
             
             if (currentSourceTab === "VOCAB") {
-                utterance.lang = 'en-US'; // Ép buộc giọng Tiếng Anh
+                utterance.lang = 'en-US'; 
             } else if (currentSourceTab === "ニュース") {
-                utterance.lang = 'ja-JP'; // Ép buộc giọng Tiếng Nhật
+                utterance.lang = 'ja-JP'; 
             } 
             
             utterance.rate = 0.85; 
