@@ -1,59 +1,455 @@
 <!DOCTYPE html>
-<html>
+<html lang="vi">
 <head>
-    <title>App Học Từ Vựng</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SHOKAIMONO</title>
+    <!-- Thư viện Icon và Font chữ -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* MÀU SẮC & BIẾN TOÀN CỤC */
+        :root {
+            --primary: #1A365D; /* Xanh dương đậm sang trọng */
+            --secondary: #3182CE;
+            --bg-color: #F7FAFC;
+            --surface: #FFFFFF;
+            --text-main: #2D3748;
+            --text-muted: #718096;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --radius: 12px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Nunito', 'Noto Sans JP', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* NAVBAR (THANH ĐIỀU HƯỚNG TRÊN CÙNG) */
+        .navbar {
+            background-color: var(--surface);
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+        }
+
+        .navbar h1 {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--primary);
+            letter-spacing: 1px;
+        }
+
+        .menu-btn {
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: var(--primary);
+            cursor: pointer;
+        }
+
+        /* SIDEBAR (MENU 3 GẠCH) */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: -280px;
+            width: 280px;
+            height: 100vh;
+            background-color: var(--primary);
+            color: white;
+            z-index: 200;
+            transition: 0.3s ease-in-out;
+            box-shadow: 2px 0 10px rgba(0,0,0,0.2);
+            padding-top: 20px;
+        }
+
+        .sidebar.active {
+            left: 0;
+        }
+
+        .sidebar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px 20px 20px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .sidebar-header h2 { font-size: 18px; }
+
+        .close-btn {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        .nav-links {
+            list-style: none;
+            margin-top: 20px;
+        }
+
+        .nav-links li {
+            padding: 15px 25px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .nav-links li:hover { background-color: rgba(255,255,255,0.1); }
+
+        /* LỚP PHỦ MỜ KHI MỞ MENU */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 150;
+            display: none;
+            opacity: 0;
+            transition: 0.3s;
+        }
+        .overlay.active { display: block; opacity: 1; }
+
+        /* NỘI DUNG CHÍNH */
+        .container {
+            margin-top: 80px; /* Cách navbar ra */
+            padding: 0 20px 40px 20px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        section { display: none; }
+        section.active { display: block; animation: fadeIn 0.4s; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* FORM THÊM TỪ MỚI */
+        .card {
+            background: var(--surface);
+            padding: 25px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+        }
+
+        .card h2 {
+            font-size: 18px;
+            margin-bottom: 20px;
+            color: var(--primary);
+            text-align: center;
+        }
+
+        .input-group {
+            margin-bottom: 15px;
+            text-align: left;
+        }
+
+        .input-group label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: var(--text-main);
+        }
+
+        input, select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #E2E8F0;
+            border-radius: 8px;
+            font-size: 15px;
+            font-family: inherit;
+            transition: 0.3s;
+            background-color: #F8FAFC;
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: var(--secondary);
+            background-color: #FFF;
+        }
+
+        button.btn-submit {
+            width: 100%;
+            padding: 14px;
+            background-color: var(--secondary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+            margin-top: 10px;
+        }
+
+        button.btn-submit:hover { background-color: #2B6CB0; }
+
+        /* DANH SÁCH TỪ VỰNG */
+        .word-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        .word-card {
+            background: var(--surface);
+            padding: 15px 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            border-left: 4px solid var(--secondary);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .word-card .word-jp {
+            font-size: 20px;
+            font-weight: bold;
+            color: var(--primary);
+            margin-bottom: 4px;
+        }
+
+        .word-card .word-vi {
+            font-size: 15px;
+            color: var(--text-muted);
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 30px;
+            color: var(--text-muted);
+            font-weight: bold;
+        }
+
+        /* NÚT BACK TO TOP */
+        #backToTop {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            width: 50px;
+            height: 50px;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            font-size: 20px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            cursor: pointer;
+            display: none; /* Ẩn mặc định */
+            align-items: center;
+            justify-content: center;
+            z-index: 99;
+            transition: 0.3s;
+        }
+
+        #backToTop:hover { background-color: var(--secondary); transform: translateY(-3px); }
+
+    </style>
 </head>
 <body>
-    <h1>App Ôn Từ Vựng Của Yến</h1>
-    
-    <!-- KHU VỰC 1: NHẬP TỪ MỚI -->
-    <h3>Nhập từ mới</h3>
-    <select id="tabSelect">
-        <option value="VOCAB">Vào tab VOCAB</option>
-        <option value="ニュース">Vào tab ニュース</option>
-    </select>
-    <input type="text" id="word" placeholder="Từ vựng (VD: 会社)">
-    <input type="text" id="meaning" placeholder="Nghĩa (VD: Công ty)">
-    <button onclick="addWord()">Thêm vào Sheet</button>
 
-    <!-- KHU VỰC 2: XEM TỪ VỰNG -->
-    <h3>Danh sách từ vựng</h3>
-    <button onclick="loadVocab('VOCAB')">Tải từ VOCAB</button>
-    <button onclick="loadVocab('ニュース')">Tải từ ニュース</button>
-    <ul id="wordList"></ul>
+    <!-- NAVBAR -->
+    <nav class="navbar">
+        <button class="menu-btn" onclick="toggleMenu()"><i class="fas fa-bars"></i></button>
+        <h1>SHOKAIMONO</h1>
+        <div style="width: 24px;"></div> <!-- Cân bằng layout -->
+    </nav>
 
+    <!-- SIDEBAR MENU -->
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h2>Menu Học Tập</h2>
+            <button class="close-btn" onclick="toggleMenu()"><i class="fas fa-times"></i></button>
+        </div>
+        <ul class="nav-links">
+            <li onclick="switchTab('addSection')"><i class="fas fa-pen-nib"></i> Nhập từ mới</li>
+            <li onclick="loadVocab('VOCAB')"><i class="fas fa-book-open"></i> Ôn tập VOCAB</li>
+            <li onclick="loadVocab('ニュース')"><i class="fas fa-newspaper"></i> Ôn tập ニュース</li>
+        </ul>
+    </div>
+    <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
+
+    <!-- MAIN CONTENT -->
+    <main class="container">
+        
+        <!-- SECTION: THÊM TỪ MỚI -->
+        <section id="addSection" class="active">
+            <div class="card">
+                <h2><i class="fas fa-seedling"></i> Bổ sung vốn từ</h2>
+                
+                <div class="input-group">
+                    <label>Lưu vào thư mục</label>
+                    <select id="tabSelect">
+                        <option value="VOCAB">Thẻ VOCAB</option>
+                        <option value="ニュース">Thẻ ニュース</option>
+                    </select>
+                </div>
+                
+                <div class="input-group">
+                    <label>Từ vựng (Kanji / Kana)</label>
+                    <input type="text" id="word" placeholder="VD: 会社">
+                </div>
+                
+                <div class="input-group">
+                    <label>Ý nghĩa (Tiếng Việt)</label>
+                    <input type="text" id="meaning" placeholder="VD: Công ty">
+                </div>
+                
+                <button class="btn-submit" onclick="addWord()"><i class="fas fa-cloud-upload-alt"></i> Lưu vào Sheet</button>
+            </div>
+        </section>
+
+        <!-- SECTION: XEM TỪ VỰNG -->
+        <section id="listSection">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                <h3 id="listTitle" style="color: var(--primary);">Đang tải...</h3>
+                <span id="wordCount" style="background: var(--primary); color: white; padding: 2px 10px; border-radius: 20px; font-size: 13px;">0 từ</span>
+            </div>
+            
+            <div id="wordList" class="word-grid">
+                <!-- Các thẻ từ vựng sẽ hiện ở đây -->
+            </div>
+        </section>
+
+    </main>
+
+    <!-- NÚT LÊN ĐẦU TRANG -->
+    <button id="backToTop" onclick="scrollToTop()"><i class="fas fa-chevron-up"></i></button>
+
+    <!-- JAVASCRIPT -->
     <script>
-        // DÁN CÁI LINK WEB APP (TỪ PHẦN 1) VÀO ĐÂY
+        // LINK APP SCRIPT CỦA BẠN
         const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwvVE5FARtfkEIQGDX2zI2oNktgV4F892pgCeeDO3vG0MxkzK0fhe4D4Q97bF8Th4MB/exec';
 
-        // Lệnh gửi từ mới lên Sheet
+        // 1. ĐIỀU KHIỂN ĐÓNG/MỞ MENU
+        function toggleMenu() {
+            document.getElementById("sidebar").classList.toggle("active");
+            document.getElementById("overlay").classList.toggle("active");
+        }
+
+        // 2. CHUYỂN ĐỔI MÀN HÌNH (Nhập từ <-> Xem từ)
+        function switchTab(sectionId) {
+            document.getElementById('addSection').classList.remove('active');
+            document.getElementById('listSection').classList.remove('active');
+            
+            document.getElementById(sectionId).classList.add('active');
+            if(document.getElementById("sidebar").classList.contains("active")) {
+                toggleMenu(); // Đóng menu nếu đang mở
+            }
+        }
+
+        // 3. THÊM TỪ MỚI
         function addWord() {
             let tab = document.getElementById('tabSelect').value;
-            let word = document.getElementById('word').value;
-            let meaning = document.getElementById('meaning').value;
+            let wordInput = document.getElementById('word');
+            let meaningInput = document.getElementById('meaning');
+
+            let word = wordInput.value.trim();
+            let meaning = meaningInput.value.trim();
+
+            if (!word || !meaning) {
+                alert("Vui lòng nhập đủ từ vựng và ý nghĩa!");
+                return;
+            }
+
+            let btn = document.querySelector('.btn-submit');
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Đang lưu...';
+            btn.disabled = true;
 
             fetch(SCRIPT_URL, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
                 body: `tab=${tab}&word=${word}&meaning=${meaning}`
             }).then(response => {
-                alert("Đã thêm thành công vào sheet!");
+                alert("🎉 Đã thêm thành công!");
+                wordInput.value = ""; // Xóa form sau khi nhập
+                meaningInput.value = "";
+                btn.innerHTML = '<i class="fas fa-cloud-upload-alt"></i> Lưu vào Sheet';
+                btn.disabled = false;
+            }).catch(err => {
+                alert("Có lỗi xảy ra, vui lòng thử lại!");
+                btn.innerHTML = '<i class="fas fa-cloud-upload-alt"></i> Lưu vào Sheet';
+                btn.disabled = false;
             });
         }
 
-        // Lệnh lấy từ vựng từ Sheet về xem
+        // 4. TẢI VÀ HIỂN THỊ TỪ VỰNG
         function loadVocab(tabName) {
-            document.getElementById('wordList').innerHTML = "Đang tải...";
+            switchTab('listSection'); // Chuyển sang màn hình List
+            
+            let list = document.getElementById('wordList');
+            let title = document.getElementById('listTitle');
+            let count = document.getElementById('wordCount');
+            
+            title.innerHTML = `Thư mục: ${tabName}`;
+            list.innerHTML = `<div class="loading"><i class="fas fa-spinner fa-spin fa-2x"></i><br><br>Đang đồng bộ dữ liệu...</div>`;
+            count.innerText = `... từ`;
+
             fetch(SCRIPT_URL + "?tab=" + tabName)
                 .then(res => res.json())
                 .then(data => {
-                    let list = document.getElementById('wordList');
                     list.innerHTML = "";
-                    // Bỏ qua hàng tiêu đề đầu tiên (i=1)
-                    for (let i = 1; i < data.length; i++) { 
-                        list.innerHTML += `<li><b>${data[i][0]}</b>: ${data[i][1]}</li>`;
+                    let htmlContent = "";
+                    
+                    // Lặp từ dưới lên trên để từ mới nhập hiển thị trên cùng
+                    for (let i = data.length - 1; i > 0; i--) { 
+                        if(data[i][0] && data[i][1]) { // Chỉ lấy dòng có dữ liệu
+                            htmlContent += `
+                            <div class="word-card">
+                                <div class="word-jp">${data[i][0]}</div>
+                                <div class="word-vi">${data[i][1]}</div>
+                            </div>`;
+                        }
                     }
+                    list.innerHTML = htmlContent;
+                    count.innerText = `${data.length - 1} từ`;
+                })
+                .catch(err => {
+                    list.innerHTML = `<div class="loading" style="color: red;">Lỗi kết nối. Vui lòng thử lại!</div>`;
                 });
+        }
+
+        // 5. NÚT TRỞ VỀ ĐẦU TRANG (Lướt xuống 200px mới hiện)
+        window.onscroll = function() {
+            let backBtn = document.getElementById("backToTop");
+            if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
+                backBtn.style.display = "flex";
+            } else {
+                backBtn.style.display = "none";
+            }
+        };
+
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
     </script>
 </body>
