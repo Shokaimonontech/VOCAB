@@ -4,20 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>SHOKAIMONO 🌸</title>
-    <!-- Font chữ to, tròn, dễ thương -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@500;700;900&family=M+PLUS+Rounded+1c:wght@500;700;900&display=swap" rel="stylesheet">
     
     <style>
         :root {
-            --bg-app: #e0f2fe; /* Xanh da trời nhạt cute */
-            --primary: #38bdf8; /* Xanh dương tươi tắn */
-            --secondary: #7dd3fc; /* Xanh pastel */
-            --accent: #f472b6; /* Hồng baby điểm xuyết */
+            --bg-app: #e0f2fe; 
+            --primary: #38bdf8; 
+            --secondary: #7dd3fc; 
+            --accent: #f472b6; 
+            --success: #34d399; 
             --text-dark: #1e293b;
             --text-gray: #475569;
             --card-bg: #ffffff;
             --font-vi: 'Nunito', sans-serif;
-            --font-jp: 'M PLUS Rounded 1c', sans-serif; /* Font Nhật nét tròn siêu cute */
+            --font-jp: 'M PLUS Rounded 1c', sans-serif; 
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
@@ -34,7 +35,6 @@
         .jp-text { font-family: var(--font-jp) !important; }
         .vi-text { font-family: var(--font-vi) !important; }
 
-        /* NAVBAR */
         .navbar {
             background: linear-gradient(135deg, var(--primary), var(--secondary));
             color: white;
@@ -53,7 +53,6 @@
         .navbar h1 { font-size: 26px; font-weight: 900; letter-spacing: 2px; }
         .menu-btn { background: none; border: none; font-size: 30px; color: white; cursor: pointer; }
 
-        /* MENU SIDEBAR CUTE */
         .sidebar {
             position: fixed; top: 0; left: -340px; width: 320px; height: 100vh;
             background-color: white; z-index: 200; transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
@@ -76,13 +75,11 @@
         .overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.4); z-index: 150; display: none; opacity: 0; transition: 0.3s; backdrop-filter: blur(2px); }
         .overlay.active { display: block; opacity: 1; }
 
-        /* CONTAINER CHUNG */
         .container { margin-top: 100px; padding: 0 15px; max-width: 650px; margin-left: auto; margin-right: auto; }
         section { display: none; animation: fadeIn 0.4s; }
         section.active { display: block; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* KHU VỰC THÊM TỪ */
         .card { background: var(--card-bg); padding: 30px 25px; border-radius: 30px; box-shadow: 0 10px 40px rgba(56, 189, 248, 0.15); border: 3px solid #f0f9ff; }
         .input-group { margin-bottom: 22px; }
         .input-group label { display: block; font-size: 18px; font-weight: 900; color: var(--primary); margin-bottom: 10px; }
@@ -100,10 +97,8 @@
         }
         button.btn-submit:active { transform: scale(0.95); }
 
-        /* ACCORDION (THÁNG -> NGÀY -> TỪ VỰNG) */
         .section-title { font-size: 24px; font-weight: 900; color: var(--primary); margin-bottom: 25px; text-align: center; text-transform: uppercase; letter-spacing: 2px;}
         
-        /* CẤP 1: THÁNG */
         .month-group { margin-bottom: 20px; background: white; border-radius: 25px; box-shadow: 0 6px 20px rgba(56, 189, 248, 0.1); border: 2px solid #e0f2fe; overflow: hidden; }
         .month-header {
             padding: 20px 25px; background: linear-gradient(to right, #f0f9ff, #ffffff); display: flex; justify-content: space-between; align-items: center;
@@ -114,7 +109,6 @@
         .month-content { display: none; padding: 15px; background: #f8fafc; }
         .month-group.open > .month-content { display: block; animation: slideDown 0.3s ease-out; }
 
-        /* CẤP 2: NGÀY */
         .date-group { margin-bottom: 15px; background: white; border-radius: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.03); border: 2px solid #f1f5f9; overflow: hidden; }
         .date-header {
             padding: 16px 20px; background: #ffffff; display: flex; justify-content: space-between; align-items: center;
@@ -126,13 +120,13 @@
 
         @keyframes slideDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* CẤP 3: THẺ TỪ VỰNG */
-        .word-card { background: white; border-radius: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); margin-bottom: 15px; border-left: 6px solid var(--accent); overflow: hidden; }
+        .word-card { background: white; border-radius: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); margin-bottom: 15px; border-left: 6px solid var(--accent); overflow: hidden; position: relative;}
         .word-card:last-child { margin-bottom: 0; }
         
         .word-header { padding: 20px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; }
-        .w-jp { font-size: 34px; font-weight: 900; color: var(--text-dark); display: block; line-height: 1.2; margin-bottom: 8px; }
-        .w-vi { font-size: 22px; font-weight: 700; color: var(--text-gray); display: block; }
+        .w-jp { font-size: 34px; font-weight: 900; color: var(--text-dark); display: block; line-height: 1.2;}
+        .w-new-badge { font-size: 14px; background: #fef08a; color: #ca8a04; padding: 4px 8px; border-radius: 10px; font-weight: 800; margin-left: 10px; vertical-align: middle;}
+        
         .word-card.open .word-header .toggle-icon { transform: rotate(180deg); color: var(--accent); }
 
         .word-body {
@@ -144,10 +138,15 @@
         .detail-item { font-size: 20px; margin-bottom: 16px; line-height: 1.6; color: var(--text-dark); }
         .detail-item span.label { font-weight: 900; color: var(--primary); display: inline-block; min-width: 100px; font-size: 18px; text-transform: uppercase; }
         
-        /* HIỆU ỨNG NGẮT DÒNG CHO SỐ (1. 2. 3.) */
+        .btn-delete {
+            width: 100%; padding: 15px; background: var(--success); color: white; border: none; border-radius: 15px;
+            font-size: 18px; font-weight: 900; cursor: pointer; margin-top: 10px; transition: 0.2s;
+            box-shadow: 0 4px 15px rgba(52, 211, 153, 0.4);
+        }
+        .btn-delete:active { transform: scale(0.95); }
+
         .num-bullet { color: var(--accent); font-weight: 900; font-size: 22px; margin-right: 5px;}
 
-        /* NÚT LOA THÔNG MINH */
         .speaker-box { display: flex; align-items: center; gap: 12px; }
         .speaker-btn {
             background: #e0f2fe; color: var(--primary); border: none; width: 45px; height: 45px;
@@ -156,7 +155,6 @@
         }
         .speaker-btn:active { transform: scale(0.85); background: var(--primary); color: white;}
 
-        /* NÚT LÊN ĐẦU TRANG */
         #backToTop {
             position: fixed; bottom: 30px; right: 25px; width: 60px; height: 60px;
             background: var(--accent); color: white; border: none; border-radius: 50%;
@@ -171,14 +169,12 @@
 </head>
 <body>
 
-    <!-- NAVBAR CUTE -->
     <nav class="navbar">
         <button class="menu-btn" onclick="toggleMenu()">🎀</button>
         <h1>SHOKAIMONO</h1>
         <div style="width: 30px;"></div>
     </nav>
 
-    <!-- SIDEBAR -->
     <div class="sidebar" id="sidebar">
         <div class="sidebar-header">
             <button class="close-btn" onclick="toggleMenu()">✖</button>
@@ -186,27 +182,31 @@
         </div>
         <ul class="nav-links">
             <li onclick="switchTab('addSection')">🌱 Thêm từ mới</li>
-            <li onclick="loadVocab('VOCAB')">📘 Ôn tập VOCAB</li>
-            <li onclick="loadVocab('ニュース')">📰 Ôn tập ニュース</li>
+            <li onclick="loadVocab('Mới')">🎯 Cần ôn tập (Chưa thuộc)</li>
+            <li onclick="loadVocab('VOCAB')">📘 Kho VOCAB</li>
+            <li onclick="loadVocab('ニュース')">📰 Kho ニュース</li>
         </ul>
     </div>
     <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
 
     <main class="container">
         
-        <!-- SECTION 1: THÊM TỪ MỚI -->
         <section id="addSection" class="active">
             <div class="card">
                 <div class="input-group">
-                    <label>📂 Chọn thư mục nè</label>
+                    <label>📂 Chọn kho để lưu</label>
                     <select id="tabSelect">
-                        <option value="VOCAB">Thẻ VOCAB</option>
-                        <option value="ニュース">Thẻ ニュース</option>
+                        <option value="VOCAB">Kho VOCAB</option>
+                        <option value="ニュース">Kho ニュース</option>
                     </select>
                 </div>
                 <div class="input-group">
                     <label>🇯🇵 Từ vựng (Kanji / Kana / Romaji)</label>
                     <input type="text" id="word" class="jp-input" placeholder="VD: 会社 hoặc Hello">
+                </div>
+                <div class="input-group">
+                    <label>📝 Cho cái ví dụ đi</label>
+                    <input type="text" id="example" class="jp-input" placeholder="VD: 1. Ví dụ một. 2. Ví dụ hai.">
                 </div>
                 <div class="input-group">
                     <label>🇻🇳 Ý nghĩa nha</label>
@@ -220,16 +220,11 @@
                     <label>🗣️ Cách đọc</label>
                     <input type="text" id="pronun" class="jp-input" placeholder="VD: かいしゃ">
                 </div>
-                <div class="input-group">
-                    <label>📝 Cho cái ví dụ đi</label>
-                    <input type="text" id="example" class="jp-input" placeholder="VD: 1. Ví dụ một. 2. Ví dụ hai.">
-                </div>
                 
                 <button class="btn-submit" onclick="addWord()">🌸 LƯU VÀO SỔ TAY 🌸</button>
             </div>
         </section>
 
-        <!-- SECTION 2: LIST TỪ VỰNG NHIỀU TẦNG -->
         <section id="listSection">
             <h3 id="listTitle" class="section-title"></h3>
             <div id="wordListContainer"></div>
@@ -240,8 +235,10 @@
     <button id="backToTop" onclick="scrollToTop()">🌸</button>
 
     <script>
-        // === GIỮ NGUYÊN LINK APP SCRIPT CỦA BẠN ===
-        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxZvWQlBHe7W7o9CYqM8_ADuaxygAppoJ4mt-IbcaJ7eJRjlcGs8XhV4eX0LU6F821n/exec'; 
+        // === LINK APP SCRIPT CỦA BẠN ===
+        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw9HeNZEnE-kqo-wJePWhnoUiqin3kQbcf9LX4WppLtfwgPEwM5BxXlAkAVtfc5MyJi/exec'; 
+
+        let currentActiveTab = "Mới";
 
         function toggleMenu() {
             document.getElementById("sidebar").classList.toggle("active");
@@ -271,12 +268,14 @@
             btn.innerHTML = '⏳ ĐANG LƯU NÈ...';
             btn.disabled = true;
 
+            let bodyData = `action=add&tab=${encodeURIComponent(tab)}&word=${encodeURIComponent(word)}&meaning=${encodeURIComponent(meaning)}&type=${encodeURIComponent(type)}&pronun=${encodeURIComponent(pronun)}&example=${encodeURIComponent(example)}`;
+
             fetch(SCRIPT_URL, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: `tab=${tab}&word=${word}&meaning=${meaning}&type=${type}&pronun=${pronun}&example=${example}`
+                body: bodyData
             }).then(response => {
-                alert("🎉 Lưu thành công rồi nha!");
+                alert("🎉 Lưu thành công!\nTừ này sẽ tự động được xếp vào rổ 'Cần ôn tập'.");
                 document.getElementById('word').value = "";
                 document.getElementById('meaning').value = "";
                 document.getElementById('type').value = "";
@@ -292,8 +291,12 @@
         }
 
         function loadVocab(tabName) {
+            currentActiveTab = tabName; 
             switchTab('listSection');
-            document.getElementById('listTitle').innerText = `☁️ THƯ MỤC: ${tabName}`;
+            
+            let displayTitle = (tabName === "Mới") ? "🎯 TỪ VỰNG CHƯA THUỘC" : `☁️ KHO: ${tabName}`;
+            document.getElementById('listTitle').innerText = displayTitle;
+            
             document.getElementById('wordListContainer').innerHTML = `<div class="loading-screen">⏳<br>Đang xoay dữ liệu ra...</div>`;
 
             fetch(SCRIPT_URL + "?tab=" + tabName)
@@ -305,19 +308,15 @@
                 });
         }
 
-        // HÀM TẠO XUỐNG DÒNG THÔNG MINH CHO SỐ (1. 2. 3.)
         function formatLineBreaks(text) {
             if (!text) return "";
-            // Tìm số (VD: 1. hoặc 2.) đằng trước có khoảng trắng hoặc nằm ở đầu câu, và thay thế bằng ngắt dòng
             let formatted = text.replace(/(?:\s|^)(\d+[\.\)])/g, '<br><br><span class="num-bullet">$1</span>');
-            // Dọn dẹp khoảng trống thừa ở đầu nếu số 1. nằm ngay đầu câu
             formatted = formatted.replace(/^(<br>)+/, '').trim();
             return formatted;
         }
 
-        // Gom nhóm: THÁNG -> NGÀY -> TỪ VỰNG
         function processData(data) {
-            let groupedData = {}; // Cấu trúc: { "Tháng 08/2026": { "15/08/2026": [từ1, từ2] } }
+            let groupedData = {}; 
             
             for (let i = 1; i < data.length; i++) {
                 let row = data[i];
@@ -327,14 +326,13 @@
                 let dateStr = rawDate;
                 let monthStr = "Chưa phân loại";
 
-                // Phân tách Tháng từ định dạng ngày (Xử lý DD/MM/YYYY hoặc YYYY-MM-DD)
                 if (rawDate !== "Khác") {
                     let parts = rawDate.includes('/') ? rawDate.split('/') : rawDate.split('-');
                     if (parts.length >= 3) {
                         if (rawDate.includes('/')) {
-                            monthStr = "Tháng " + parts[1] + "/" + parts[2]; // DD/MM/YYYY
+                            monthStr = "Tháng " + parts[1] + "/" + parts[2]; 
                         } else {
-                            monthStr = "Tháng " + parts[1] + "/" + parts[0]; // YYYY-MM-DD
+                            monthStr = "Tháng " + parts[1] + "/" + parts[0]; 
                         }
                     }
                 }
@@ -344,10 +342,10 @@
 
                 groupedData[monthStr][dateStr].push({
                     word: row[0] || "",
-                    meaning: formatLineBreaks(row[1] || ""),  // Đã gắn tự xuống dòng cho Ý nghĩa
+                    meaning: formatLineBreaks(row[1] || ""), 
                     type: row[3] || "---",
                     pronun: row[4] || "---",
-                    example: formatLineBreaks(row[5] || "")   // Đã gắn tự xuống dòng cho Ví dụ
+                    example: formatLineBreaks(row[5] || "")   
                 });
             }
             renderNestedAccordions(groupedData);
@@ -357,20 +355,19 @@
             let container = document.getElementById('wordListContainer');
             container.innerHTML = "";
             
-            // Xếp Tháng mới nhất lên trên
             let months = Object.keys(groupedData).sort((a,b) => {
                 if(a === "Chưa phân loại") return 1;
-                return b.localeCompare(a); // So sánh chuỗi Tháng (Sẽ đúng nếu định dạng MM/YYYY ổn định định dạng)
+                return b.localeCompare(a); 
             });
 
             if(months.length === 0) {
-                container.innerHTML = `<p style="text-align:center; font-size:20px;">Trống trơn à, nhập thêm từ đi!</p>`;
+                container.innerHTML = `<p style="text-align:center; font-size:20px;">Trống trơn à, không có từ nào đâu!</p>`;
                 return;
             }
 
             let html = "";
             months.forEach((month, mIndex) => {
-                let isMonthOpen = mIndex === 0 ? "open" : ""; // Mở sẵn Tháng đầu tiên
+                let isMonthOpen = mIndex === 0 ? "open" : ""; 
                 
                 html += `
                 <div class="month-group ${isMonthOpen}">
@@ -381,14 +378,13 @@
                     <div class="month-content">
                 `;
 
-                // Xếp Ngày mới nhất lên trên trong Tháng
                 let dates = Object.keys(groupedData[month]).sort((a,b) => {
                     return new Date(b.split('/').reverse().join('-')) - new Date(a.split('/').reverse().join('-'));
                 });
 
                 dates.forEach((date, dIndex) => {
                     let words = groupedData[month][date].reverse();
-                    let isDateOpen = (mIndex === 0 && dIndex === 0) ? "open" : ""; // Mở sẵn Ngày mới nhất
+                    let isDateOpen = (mIndex === 0 && dIndex === 0) ? "open" : ""; 
 
                     html += `
                     <div class="date-group ${isDateOpen}">
@@ -400,68 +396,90 @@
                     `;
 
                     words.forEach(w => {
+                        let badgeHtml = currentActiveTab === "Mới" ? `<span class="w-new-badge">Chưa nhớ</span>` : "";
+
                         html += `
                         <div class="word-card">
                             <div class="word-header" onclick="toggleParent(this, 'word-card')">
                                 <div>
-                                    <span class="w-jp jp-text">${w.word}</span>
-                                    <span class="w-vi vi-text">${w.meaning}</span>
+                                    <span class="w-jp jp-text">${w.word} ${badgeHtml}</span>
                                 </div>
                                 <span class="toggle-icon">🔽</span>
                             </div>
                             <div class="word-body">
-                                <div class="detail-item"><span class="label">Từ loại:</span> <span class="vi-text" style="font-weight:700;">${w.type}</span></div>
-                                
                                 <div class="detail-item speaker-box">
-                                    <span class="label">Cách đọc:</span> <span class="jp-text" style="font-size: 24px; font-weight:900; color:var(--primary);">${w.pronun}</span>
+                                    <span class="label">Đọc:</span> <span class="jp-text" style="font-size: 24px; font-weight:900; color:var(--primary);">${w.pronun}</span>
                                     ${w.pronun !== "---" ? `<button class="speaker-btn" onclick="detectLangAndSpeak('${w.word}')">🔊</button>` : ''}
                                 </div>
-
+                                <div class="detail-item"><span class="label">Từ loại:</span> <span class="vi-text" style="font-weight:700;">${w.type}</span></div>
                                 <div class="detail-item"><span class="label">Ví dụ:</span> <div class="jp-text" style="font-size: 22px; padding-top: 5px;">${w.example}</div></div>
+                                
+                                <hr style="border-top: 2px dashed #bae6fd; margin: 20px 0;">
+                                <div class="detail-item"><span class="label" style="color:var(--accent);">Ý nghĩa:</span> <span class="vi-text" style="font-weight:800;">${w.meaning}</span></div>
+                                
+                                <!-- NÚT NÀY CHỈ HIỆN KHI ĐANG LỌC TỪ CHƯA THUỘC -->
+                                ${currentActiveTab === "Mới" ? `<button class="btn-delete" onclick="markAsLearned('${w.word}', this)">✅ Đã thuộc (Ẩn khỏi danh sách này)</button>` : ''}
                             </div>
                         </div>`;
                     });
 
-                    html += `</div></div>`; // Đóng date-group
+                    html += `</div></div>`; 
                 });
-
-                html += `</div></div>`; // Đóng month-group
+                html += `</div></div>`; 
             });
 
             container.innerHTML = html;
         }
 
-        // Hàm Đóng/Mở chung cho cả 3 cấp Accordion
+        // HÀM ĐÁNH DẤU LÀ ĐÃ NHỚ, KHÔNG XÓA KHỎI KHO
+        function markAsLearned(wordToMark, btnElement) {
+            let confirmDel = confirm(`Bạn đã thuộc chữ "${wordToMark}" rồi đúng không?\nChữ này sẽ được ẩn đi, nhưng vẫn lưu an toàn trong kho gốc nhé!`);
+            if(!confirmDel) return;
+
+            btnElement.innerHTML = '⏳ Đang xử lý...';
+            btnElement.disabled = true;
+
+            let bodyData = `action=mark_learned&word=${encodeURIComponent(wordToMark)}`;
+
+            fetch(SCRIPT_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: bodyData
+            }).then(response => {
+                let card = btnElement.closest('.word-card');
+                card.style.transition = "0.4s";
+                card.style.opacity = "0";
+                setTimeout(() => card.remove(), 400);
+            }).catch(err => {
+                alert("Lỗi mạng rồi. Thử lại sau nha!");
+                btnElement.innerHTML = '✅ Đã thuộc (Ẩn khỏi danh sách này)';
+                btnElement.disabled = false;
+            });
+        }
+
         function toggleParent(headerEl, parentClass) {
             let parentBox = headerEl.closest('.' + parentClass);
             parentBox.classList.toggle('open');
         }
 
-        // HÀM NHẬN DIỆN NGÔN NGỮ ĐỂ PHÁT ÂM (AI)
         function detectLangAndSpeak(text) {
             window.speechSynthesis.cancel();
             let utterance = new SpeechSynthesisUtterance(text);
             
-            // Logic quét ngôn ngữ:
             if (/[\u3040-\u309F\u30A0-\u30FF]/.test(text)) {
-                // Chứa Hiragana/Katakana -> Tiếng Nhật
                 utterance.lang = 'ja-JP';
             } else if (/[\u4E00-\u9FFF]/.test(text)) {
-                // Chứa Chữ Hán nhưng KHÔNG có Kana -> Tiếng Trung
                 utterance.lang = 'zh-CN';
             } else if (/[a-zA-Z]/.test(text)) {
-                // Chứa chữ cái ABC -> Tiếng Anh
                 utterance.lang = 'en-US';
             } else {
-                // Còn lại quy về tiếng Nhật
                 utterance.lang = 'ja-JP';
             }
             
-            utterance.rate = 0.85; // Đọc chậm một chút cho rõ
+            utterance.rate = 0.85; 
             window.speechSynthesis.speak(utterance);
         }
 
-        // Scroll to Top
         window.onscroll = function() {
             let backBtn = document.getElementById("backToTop");
             if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
