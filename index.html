@@ -123,13 +123,12 @@
 
         @keyframes slideDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
 
-        .word-card { background: white; border-radius: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); margin-bottom: 15px; border-left: 6px solid var(--accent); overflow: hidden; position: relative;}
+        .word-card { background: white; border-radius: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); margin-bottom: 15px; border-left: 6px solid var(--accent); overflow: hidden; position: relative; transition: all 0.3s;}
         .word-card:last-child { margin-bottom: 0; }
         
         .word-header { padding: 20px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; }
         .w-jp { font-size: 34px; font-weight: 900; color: var(--text-dark); display: block; line-height: 1.2;}
         .w-new-badge { font-size: 14px; background: #fef08a; color: #ca8a04; padding: 4px 8px; border-radius: 10px; font-weight: 800; margin-left: 10px; vertical-align: middle; font-family: var(--font-vi);}
-        .w-done-badge { font-size: 14px; background: #d1fae5; color: #047857; padding: 4px 8px; border-radius: 10px; font-weight: 800; margin-left: 10px; vertical-align: middle; font-family: var(--font-vi);}
         
         .word-card.open .word-header .toggle-icon { transform: rotate(180deg); color: var(--accent); }
 
@@ -148,7 +147,8 @@
             font-weight: 900; cursor: pointer; transition: 0.2s;
         }
         .btn-success { background: var(--success); color: white; box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4); }
-        .btn-undo { background: #cbd5e1; color: #1e293b; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        .btn-undo { background: #e2e8f0; color: #475569; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        .btn-warning { background: var(--warning); color: white; box-shadow: 0 4px 15px rgba(245, 158, 11, 0.4); }
         .btn-link { background: var(--primary); color: white; box-shadow: 0 4px 15px rgba(56, 189, 248, 0.4); }
         .btn-action:active { transform: scale(0.97); }
 
@@ -187,12 +187,13 @@
             <button class="close-btn" onclick="toggleMenu()">✖</button>
             <h2 style="font-size: 26px; font-weight: 900; font-family: var(--font-vi);">MENU ☁️</h2>
         </div>
+        <!-- THỨ TỰ TAB ĐƯỢC CHỈNH LẠI CHUẨN XÁC -->
         <ul class="nav-links">
-            <li onclick="switchTab('addSection')">🌱 Thêm mới</li>
-            <li onclick="loadVocab('Mới_VOCAB', 'VOCAB')">🏵️ Mới VOCAB</li>
-            <li onclick="loadVocab('Mới_ニュース', 'ニュース')">🏵️ Mới ニュース</li>
             <li onclick="loadVocab('VOCAB', 'VOCAB')">🌸 Kho VOCAB</li>
             <li onclick="loadVocab('ニュース', 'ニュース')">💮 Kho ニュース</li>
+            <li onclick="loadVocab('Mới_VOCAB', 'VOCAB')">🏵️ Mới VOCAB</li>
+            <li onclick="loadVocab('Mới_ニュース', 'ニュース')">🏵️ Mới ニュース</li>
+            <li onclick="switchTab('addSection')">🌱 Thêm từ mới</li>
         </ul>
     </div>
     <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
@@ -243,11 +244,12 @@
     <button id="backToTop" onclick="scrollToTop()">🌸</button>
 
     <script>
-        // === LINK APP SCRIPT CỦA BẠN ===
+        // === LINK APP SCRIPT ===
         const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw9HeNZEnE-kqo-wJePWhnoUiqin3kQbcf9LX4WppLtfwgPEwM5BxXlAkAVtfc5MyJi/exec'; 
 
-        let currentViewMode = ""; // Lưu trạng thái tab đang xem (VD: Mới_VOCAB, VOCAB)
-        let currentSourceTab = ""; // Lưu Sheet đang truy xuất (VD: VOCAB, ニュース)
+        let currentViewMode = ""; // Tab hiển thị: VOCAB, ニュース, Mới_VOCAB, Mới_ニュース
+        let currentSourceTab = ""; // Thư mục gốc tương ứng: VOCAB, ニュース
+        let targetScrollWord = null; // Biến dùng để nhảy đến từ gốc
 
         function toggleMenu() {
             document.getElementById("sidebar").classList.toggle("active");
@@ -261,6 +263,7 @@
             if(document.getElementById("sidebar").classList.contains("active")) toggleMenu();
         }
 
+        // KHI THÊM TỪ: Status sẽ trống "", tức là CHỈ nằm ở Kho, KHÔNG nằm ở Tab Mới
         function addWord() {
             let tab = document.getElementById('tabSelect').value;
             let word = document.getElementById('word').value.trim();
@@ -284,7 +287,7 @@
                 headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
                 body: bodyData
             }).then(response => {
-                alert("🎉 Lưu thành công!\nTừ sẽ về thẳng Kho Gốc và tự động hiển thị trong Tab Mới tương ứng.");
+                alert("🎉 Lưu thành công!\nTừ đã được thêm vào Kho gốc. Hãy vào Kho bấm 'Thêm vào Tab Mới' để bắt đầu học nhé!");
                 document.getElementById('word').value = "";
                 document.getElementById('meaning').value = "";
                 document.getElementById('type').value = "";
@@ -315,9 +318,42 @@
                 .then(res => res.json())
                 .then(data => {
                     processData(data, viewMode, sourceTab);
+
+                    // XỬ LÝ NHẢY ĐẾN TỪ GỐC
+                    if (targetScrollWord) {
+                        setTimeout(() => {
+                            let safeWord = targetScrollWord.replace(/"/g, '\\"');
+                            let card = document.querySelector(`.word-card[data-word="${safeWord}"]`);
+                            if (card) {
+                                let dGroup = card.closest('.date-group');
+                                if(dGroup) dGroup.classList.add('open');
+                                let mGroup = card.closest('.month-group');
+                                if(mGroup) mGroup.classList.add('open');
+                                
+                                card.classList.add('open');
+                                card.scrollIntoView({behavior: 'smooth', block: 'center'});
+                                
+                                // Hiệu ứng chớp sáng để nhận biết
+                                card.style.boxShadow = "0 0 25px var(--warning)";
+                                card.style.borderLeft = "6px solid var(--warning)";
+                                setTimeout(() => {
+                                    card.style.boxShadow = "0 4px 15px rgba(0,0,0,0.05)";
+                                    card.style.borderLeft = "6px solid var(--accent)";
+                                }, 3000);
+                            }
+                            targetScrollWord = null; // Reset
+                        }, 400); // Đợi load giao diện xong mới cuộn
+                    }
+
                 }).catch(err => {
                     document.getElementById('wordListContainer').innerHTML = `<p style="text-align:center; color: red; font-size:20px;">Lỗi mạng. Tải lại trang dùm cái!</p>`;
                 });
+        }
+
+        // LỆNH CHUYỂN TRANG NHẢY TỚI GỐC
+        function jumpToOrigin(word, sourceTab) {
+            targetScrollWord = word;
+            loadVocab(sourceTab, sourceTab); // Chuyển sang tải Kho gốc
         }
 
         function formatLineBreaks(text) {
@@ -327,7 +363,7 @@
             return formatted;
         }
 
-        // PHÂN LOẠI & LỌC TỪ
+        // LỌC TỪ THEO YÊU CẦU: Tab mới chỉ hiển thị từ có Status = "Cần ôn"
         function processData(data, viewMode, sourceTab) {
             let groupedData = {}; 
             
@@ -335,11 +371,11 @@
                 let row = data[i];
                 if (!row[0]) continue; 
                 
-                let status = row[6] || ""; // Cột 7 (G) lưu trạng thái "Đã nhớ"
+                let status = row[6] || ""; 
                 
-                // LỌC: Nếu đang ở Tab Mới -> Bỏ qua các từ "Đã nhớ"
-                if (viewMode.startsWith("Mới") && status === "Đã nhớ") {
-                    continue; 
+                // LỌC TỪ: Nếu đang xem "Mới", thì chỉ nhặt những từ có chữ "Cần ôn"
+                if (viewMode.startsWith("Mới")) {
+                    if (status !== "Cần ôn") continue; 
                 }
 
                 let rawDate = row[2] ? row[2].toString().substring(0, 10) : "Khác";
@@ -372,7 +408,6 @@
             renderNestedAccordions(groupedData, viewMode, sourceTab);
         }
 
-        // RENDER GIAO DIỆN
         function renderNestedAccordions(groupedData, viewMode, sourceTab) {
             let container = document.getElementById('wordListContainer');
             container.innerHTML = "";
@@ -383,7 +418,7 @@
             });
 
             if(months.length === 0) {
-                container.innerHTML = `<p style="text-align:center; font-size:20px; font-weight:800; color:var(--text-gray);">Tuyệt vời! Không còn từ nào chưa thuộc. 🌸</p>`;
+                container.innerHTML = `<p style="text-align:center; font-size:20px; font-weight:800; color:var(--text-gray);">Hiện chưa có từ vựng nào ở đây. 🌸</p>`;
                 return;
             }
 
@@ -418,29 +453,27 @@
                     `;
 
                     words.forEach(w => {
-                        // Badge hiển thị dựa trên trạng thái (Áp dụng cho Kho)
                         let badgeHtml = "";
-                        if (w.status === "Đã nhớ") {
-                            badgeHtml = `<span class="w-done-badge">Đã nhớ</span>`;
-                        } else {
-                            badgeHtml = `<span class="w-new-badge">Chưa thuộc</span>`;
-                        }
-
-                        // Xử lý Render Nút bấm động
                         let actionButtonsHtml = "";
-                        if (w.status === "Đã nhớ") {
-                            actionButtonsHtml += `<button class="btn-action btn-undo" onclick="updateStatus('${w.word}', '', this, '${viewMode}')">↩️ Đánh dấu Chưa thuộc (Hoàn tác)</button>`;
-                        } else {
-                            actionButtonsHtml += `<button class="btn-action btn-success" onclick="updateStatus('${w.word}', 'Đã nhớ', this, '${viewMode}')">✅ Đã thuộc</button>`;
-                        }
 
-                        // Nếu ở tab Mới -> Có nút quay về Kho gốc
+                        let safeWordAttr = w.word.replace(/"/g, '&quot;'); // Chống lỗi nháy kép HTML
+
                         if (viewMode.startsWith("Mới")) {
-                            actionButtonsHtml += `<button class="btn-action btn-link" onclick="loadVocab('${sourceTab}', '${sourceTab}')">🔗 Tới kho gốc: ${sourceTab}</button>`;
+                            // GIAO DIỆN Ở TAB MỚI
+                            actionButtonsHtml += `<button class="btn-action btn-success" onclick="updateStatus('${safeWordAttr}', '', this, '${viewMode}')">✅ Đã thuộc (Xóa khỏi Tab Mới)</button>`;
+                            actionButtonsHtml += `<button class="btn-action btn-link" onclick="jumpToOrigin('${safeWordAttr}', '${sourceTab}')">🔗 Đi tới gốc từ vựng này</button>`;
+                        } else {
+                            // GIAO DIỆN Ở KHO GỐC
+                            if (w.status === "Cần ôn") {
+                                badgeHtml = `<span class="w-new-badge">Đang ở Tab Mới</span>`;
+                                actionButtonsHtml += `<button class="btn-action btn-undo" onclick="updateStatus('${safeWordAttr}', '', this, '${viewMode}')">❌ Bỏ khỏi Tab Mới</button>`;
+                            } else {
+                                actionButtonsHtml += `<button class="btn-action btn-warning" onclick="updateStatus('${safeWordAttr}', 'Cần ôn', this, '${viewMode}')">⭐ Thêm vào Tab Mới</button>`;
+                            }
                         }
 
                         html += `
-                        <div class="word-card">
+                        <div class="word-card" data-word="${safeWordAttr}">
                             <div class="word-header" onclick="toggleParent(this, 'word-card')">
                                 <div>
                                     <span class="w-jp jp-text">${w.word} ${badgeHtml}</span>
@@ -450,7 +483,7 @@
                             <div class="word-body">
                                 <div class="detail-item speaker-box">
                                     <span class="label">Đọc:</span> <span class="jp-text" style="font-size: 24px; font-weight:900; color:var(--primary);">${w.pronun}</span>
-                                    ${w.pronun !== "---" ? `<button class="speaker-btn" onclick="detectLangAndSpeak('${w.word}')">🔊</button>` : ''}
+                                    ${w.pronun !== "---" ? `<button class="speaker-btn" onclick="detectLangAndSpeak('${safeWordAttr}')">🔊</button>` : ''}
                                 </div>
                                 <div class="detail-item"><span class="label">Từ loại:</span> <span class="vi-text" style="font-weight:700;">${w.type}</span></div>
                                 <div class="detail-item"><span class="label">Ví dụ:</span> <div class="jp-text" style="font-size: 22px; padding-top: 5px;">${w.example}</div></div>
@@ -458,7 +491,6 @@
                                 <hr style="border-top: 2px dashed #bae6fd; margin: 20px 0;">
                                 <div class="detail-item"><span class="label" style="color:var(--accent);">Ý nghĩa:</span> <span class="vi-text" style="font-weight:800;">${w.meaning}</span></div>
                                 
-                                <!-- Hàng nút chức năng -->
                                 <div class="action-buttons">
                                     ${actionButtonsHtml}
                                 </div>
@@ -474,7 +506,7 @@
             container.innerHTML = html;
         }
 
-        // HÀM CẬP NHẬT TRẠNG THÁI (Đã thuộc / Hoàn tác)
+        // CẬP NHẬT TRẠNG THÁI (Đưa vào Mới / Đã Thuộc / Xóa khỏi Mới)
         function updateStatus(wordToMark, newStatus, btnElement, viewMode) {
             let originalText = btnElement.innerText;
             btnElement.innerHTML = '⏳ Đang xử lý...';
@@ -487,23 +519,24 @@
                 headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
                 body: bodyData
             }).then(response => {
-                // Nếu đang ở Tab Mới và bấm "Đã thuộc", thì ẩn Card đó đi
-                if (viewMode.startsWith("Mới") && newStatus === "Đã nhớ") {
+                if (viewMode.startsWith("Mới")) {
+                    // Nếu đang trong Tab Mới và bấm "Đã thuộc", từ sẽ bị gỡ mác "Cần ôn" và biến mất
                     let card = btnElement.closest('.word-card');
                     card.style.transition = "0.4s";
                     card.style.opacity = "0";
                     setTimeout(() => card.remove(), 400);
                 } else {
-                    // Nếu ở tab Kho, đổi thiết kế nút và Badge
+                    // Nếu đang trong Kho gốc, đổi thiết kế nút và Badge ngay lập tức
                     let actionBox = btnElement.closest('.action-buttons');
                     let badgeArea = btnElement.closest('.word-card').querySelector('.word-header div');
+                    let safeWordAttr = wordToMark.replace(/"/g, '&quot;');
                     
-                    if (newStatus === "Đã nhớ") {
-                        badgeArea.innerHTML = `<span class="w-jp jp-text">${wordToMark} <span class="w-done-badge">Đã nhớ</span></span>`;
-                        actionBox.innerHTML = `<button class="btn-action btn-undo" onclick="updateStatus('${wordToMark}', '', this, '${viewMode}')">↩️ Đánh dấu Chưa thuộc (Hoàn tác)</button>` + (actionBox.innerHTML.includes('🔗') ? `<button class="btn-action btn-link" onclick="loadVocab('${currentSourceTab}', '${currentSourceTab}')">🔗 Tới kho gốc: ${currentSourceTab}</button>` : '');
+                    if (newStatus === "Cần ôn") {
+                        badgeArea.innerHTML = `<span class="w-jp jp-text">${wordToMark} <span class="w-new-badge">Đang ở Tab Mới</span></span>`;
+                        actionBox.innerHTML = `<button class="btn-action btn-undo" onclick="updateStatus('${safeWordAttr}', '', this, '${viewMode}')">❌ Bỏ khỏi Tab Mới</button>`;
                     } else {
-                        badgeArea.innerHTML = `<span class="w-jp jp-text">${wordToMark} <span class="w-new-badge">Chưa thuộc</span></span>`;
-                        actionBox.innerHTML = `<button class="btn-action btn-success" onclick="updateStatus('${wordToMark}', 'Đã nhớ', this, '${viewMode}')">✅ Đã thuộc</button>` + (actionBox.innerHTML.includes('🔗') ? `<button class="btn-action btn-link" onclick="loadVocab('${currentSourceTab}', '${currentSourceTab}')">🔗 Tới kho gốc: ${currentSourceTab}</button>` : '');
+                        badgeArea.innerHTML = `<span class="w-jp jp-text">${wordToMark}</span>`;
+                        actionBox.innerHTML = `<button class="btn-action btn-warning" onclick="updateStatus('${safeWordAttr}', 'Cần ôn', this, '${viewMode}')">⭐ Thêm vào Tab Mới</button>`;
                     }
                 }
             }).catch(err => {
@@ -518,16 +551,15 @@
             parentBox.classList.toggle('open');
         }
 
-        // HÀM PHÁT ÂM CHUẨN XÁC
+        // HÀM PHÁT ÂM (CHÍNH XÁC 100% DỰA THEO THƯ MỤC GỐC)
         function detectLangAndSpeak(text) {
             window.speechSynthesis.cancel();
             let utterance = new SpeechSynthesisUtterance(text);
             
-            // Xử lý phát âm chính xác tuyệt đối theo Tab
             if (currentSourceTab === "VOCAB") {
-                utterance.lang = 'en-US'; // 100% Tiếng Anh cho VOCAB
+                utterance.lang = 'en-US'; // Ép buộc giọng Tiếng Anh
             } else if (currentSourceTab === "ニュース") {
-                utterance.lang = 'ja-JP'; // 100% Tiếng Nhật cho ニュース
+                utterance.lang = 'ja-JP'; // Ép buộc giọng Tiếng Nhật
             } 
             
             utterance.rate = 0.85; 
