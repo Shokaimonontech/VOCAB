@@ -207,8 +207,8 @@
             <h2 style="font-size: 26px; font-weight: 900; font-family: var(--font-vi);">MENU ☁️</h2>
         </div>
         <ul class="nav-links">
-            <li onclick="loadVocab('VOCAB', 'VOCAB')">🌸 Kho VOCAB</li>
-            <li onclick="loadVocab('ニュース', 'ニュース')">💮 Kho ニュース</li>
+            <li onclick="loadVocab('VOCAB', 'VOCAB')">🌸 VOCAB</li>
+            <li onclick="loadVocab('ニュース', 'ニュース')">💮 ニュース</li>
             <li onclick="loadVocab('Mới_VOCAB', 'VOCAB')">🏵️ Mới VOCAB</li>
             <li onclick="loadVocab('Mới_ニュース', 'ニュース')">🏵️ Mới ニュース</li>
             <li onclick="switchTab('addSection')">🌱 Thêm từ mới</li>
@@ -222,7 +222,7 @@
         <section id="addSection">
             <div class="card">
                 <div class="input-group">
-                    <label>🌸 Chọn nơi lưu (Kho gốc)</label>
+                    <label>🌸 Chọn nơi lưu</label>
                     <select id="tabSelect">
                         <option value="VOCAB">🌸 VOCAB</option>
                         <option value="ニュース">💮 ニュース</option>
@@ -267,7 +267,7 @@
 
         <!-- SECTION HIỂN THỊ TỪ VỰNG KHO -->
         <section id="listSection" class="active">
-            <h3 id="listTitle" class="section-title">🌸 Kho VOCAB</h3>
+            <h3 id="listTitle" class="section-title">🌸 VOCAB</h3>
             
             <div class="calendar-wrapper">
                 <div class="calendar-header">
@@ -374,7 +374,7 @@
                         <span class="num-bullet">${index + 1}.</span> 
                         <span class="jp-text" style="color: var(--primary); font-size: 22px;">${item.word}</span> 
                         <span style="font-size: 16px; color: var(--text-gray);">(${item.meaning})</span><br>
-                        <span style="font-size: 14px; color: var(--text-gray);">Kho: ${item.tab}</span>
+                        <span style="font-size: 14px; color: var(--text-gray);">${item.tab}</span>
                     </div>
                     <div class="staging-actions">
                         <button class="staging-btn staging-btn-undo" onclick="undoStaged(${index})">↩️ Sửa</button>
@@ -463,7 +463,7 @@
         }
 
         // ==========================================
-        // CÁC HÀM HIỂN THỊ TỪ VỰNG KHO NHƯ CŨ
+        // CÁC HÀM HIỂN THỊ TỪ VỰNG NHƯ CŨ
         // ==========================================
 
         function loadVocab(viewMode, sourceTab) {
@@ -471,7 +471,7 @@
             currentSourceTab = sourceTab;
             switchTab('listSection');
             
-            let displayTitle = viewMode.startsWith("Mới") ? `🏵️ TAB MỚI: ${sourceTab}` : `🌸 KHO: ${sourceTab}`;
+            let displayTitle = viewMode.startsWith("Mới") ? `🏵️ TAB MỚI: ${sourceTab}` : `🌸 ${sourceTab}`;
             document.getElementById('listTitle').innerText = displayTitle;
             
             document.getElementById('wordListContainer').innerHTML = `<div class="loading-screen">⏳<br>Đang tải dữ liệu...</div>`;
@@ -593,16 +593,22 @@
             }
         }
 
-        function changeMonth(step) {
-            displayMonth += step;
-            if (displayMonth < 0) { displayMonth = 11; displayYear--; }
-            else if (displayMonth > 11) { displayMonth = 0; displayYear++; }
-            renderCalendar(displayMonth, displayYear);
-            document.getElementById('wordListContainer').innerHTML = "";
-            document.getElementById('selectedDateTitle').style.display = 'none';
-        }
-
         function showWordsForDate(dateStr, cellElement) {
+            let container = document.getElementById('wordListContainer');
+            let titleArea = document.getElementById('selectedDateTitle');
+
+            // --- LÔ-GIC ĐÓNG MỞ NGÀY ---
+            if (cellElement) {
+                if (cellElement.classList.contains('selected')) {
+                    // Đang được chọn -> Click lại thì hủy chọn và xóa nội dung bên dưới
+                    cellElement.classList.remove('selected');
+                    titleArea.style.display = 'none';
+                    container.innerHTML = '';
+                    targetScrollDate = null; // Tránh việc nó tự động focus lại nếu nhảy trang
+                    return; // Kết thúc hàm tại đây
+                }
+            }
+
             document.querySelectorAll('.day-cell').forEach(el => el.classList.remove('selected'));
             if (cellElement) {
                 cellElement.classList.add('selected');
@@ -615,8 +621,6 @@
             }
 
             let words = globalGroupedData[dateStr] || [];
-            let container = document.getElementById('wordListContainer');
-            let titleArea = document.getElementById('selectedDateTitle');
 
             if (words.length === 0) {
                 titleArea.style.display = "block";
